@@ -1,0 +1,29 @@
+---
+- hosts: all
+  become: yes
+  become_method: sudo
+
+  vars:
+    vhosts:
+      - name:       demo.conf
+        doc_root:   /var/www/demo
+        servername: localhost demo.web.dev
+
+  handlers:
+    - name:         restart apache2
+      service:      name=apache2 state=restarted
+
+  tasks:
+    - name:         ensure that the apache web server is installed
+      apt:          pkg=apache2 state=installed update_cache=yes
+
+    - name:         ensure that the virtual hosts are configured
+      template:     src=vhost.conf.j2 dest=/etc/apache2/sites-available/{{ item.name }}
+      with_items:   vhosts
+      notify:       restart apache2
+
+    - name:         ensure that the virtual hosts are enabled
+      command:      "a2ensite {{ item.name }}"
+      with_items:   vhosts
+      when:         vhosts
+      notify:       restart apache2

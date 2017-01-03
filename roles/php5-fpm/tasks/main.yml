@@ -1,0 +1,18 @@
+---
+# File: roles/php5-fpm/tasks/main.yml
+# Description: Apache2 installation and configuration
+
+# PHP5 installation
+- name:           install | ensure that non-free packages are used
+  replace:
+    dest:         /etc/apt/sources.list
+    regexp:       '(^deb(-src?) http(s?):\/\/.*\/.* main$)'
+    replace:      '\1 non-free'
+
+- name:           install | enforce update of apt cache
+  apt:            update_cache=yes
+
+- name:           install | ensure that all php5 packages are installed
+  apt:            name="{{item}}" state=latest update_cache=yes cache_valid_time=3600
+  with_items:     "{{php5_packages}}"
+  when:           "{{php5_packages}}"

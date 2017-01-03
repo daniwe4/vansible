@@ -1,0 +1,10 @@
+---
+# File: webserver.yml
+# Web Servers
+- hosts: all
+  become: yes
+  become_method: sudo
+  roles:
+    - apache2
+    - php5-fpm
+    - { role: achaussier.mysql-server }

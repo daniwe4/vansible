@@ -1,0 +1,51 @@
+---
+# File: roles/apache2/tasks/main.yml
+# Description: Apache2 installation and configuration
+
+# Apache2 installation
+- name:           install | ensure that non-free packages are used
+  replace:
+    dest:         /etc/apt/sources.list
+    regexp:       '(^deb(-src?) http(s?):\/\/.*\/.* main$)'
+    replace:      '\1 non-free'
+
+- name:           install | enforce update of apt cache
+  apt:            update_cache=yes
+
+- name:           install | ensure that apache2 packages are installed
+  apt:            name="{{item}}" state=latest update_cache=yes cache_valid_time=3600
+  with_items:     "{{apache2_packages}}"
+  when:           "{{apache2_packages}}"
+
+- name:           install | ensure that apache2 service is installed
+  service:        name=apache2 enabled=yes
+
+- name:           install | ensure that desired apache2 modules are installed
+  apache2_module: state=present name="{{item}}"
+  with_items:     "{{apache2_modules}}"
+  when:           "{{apache2_modules}}"
+  notify:         apache2 restart
+
+# Manage Virtual Hosts
+- name:           sites | ensure that DocumentRoots exists
+  file:           path="{{item.doc_root}}" owner="{{item.owner}}" group="{{item.owner}}" mode=0755 state=directory
+  with_items:     "{{apache2_sites}}"
+  when:           "{{apache2_sites}}"
+
+- name:           sites | ensure that VirtualHosts are configured
+  template:       src=vhost.conf.j2 dest=/etc/apache2/sites-available/"{{item.name}}".conf
+  with_items:     "{{apache2_sites}}"
+  notify:         apache2 restart
+  when:           "{{apache2_sites}}"
+
+- name:           sites | ensure that VirtualHosts are enabled
+  command:        "a2ensite '{{item.name}}'"
+  with_items:     "{{apache2_sites}}"
+  notify:         apache2 restart
+  when:           "{{apache2_sites}}"
+
+- name:           sites | ensure that non-desired VirtualHosts are disabled
+  command:        "a2dissite '{{item.name}}'"
+  with_items:     "{{apache2_sites_disabled}}"
+  notify:         apache2 restart
+  when:           "{{apache2_sites_disabled}}"

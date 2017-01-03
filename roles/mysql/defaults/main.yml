@@ -1,0 +1,27 @@
+---
+# File: roles/mysql/defaults/main.yml
+# Packages to install
+mysql_packages:
+  - mysql-server
+  - mysql-client
+  - python-mysqldb
+
+# List of databases and users to be created
+mysql_databases:  []
+mysql_users:      []
+
+# Security
+mysql_security_storedprocedures_check: true
+
+# Basic configuration settings
+mysql_daemon_user:          mysql
+mysql_datadir:              /usr/lib/mysql
+mysql_port:                 3306
+mysql_bind_address:         127.0.0.1
+mysql_root_password:        mysqlpassword
+mysql_collation_server:     utf8_general_ci
+mysql_character_set_server: utf8
+
+# Security
+mysql_max_connections:  100
+max_connect_errors:     10
