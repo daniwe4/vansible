@@ -8,4 +8,4 @@
     - systools
     - apache2
     - php5-fpm
-    #- InstILIAS
+    - InstILIAS

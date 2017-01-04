@@ -2,8 +2,5 @@
 # File: roles/InstILIAS/tasks/main.yml
 # Clone InstILIAS to /var/www/default
 
-- name: clone | clone 
-  git:
-  repo: git://github.com/conceptsandtraining/InstILIAS.git
-  dest: /var/www/default
-  clone: yes
+- name: git | get InstILIAS
+  git:  repo=git://github.com/conceptsandtraining/InstILIAS.git dest=/var/www/default
