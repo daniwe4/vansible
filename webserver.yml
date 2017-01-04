@@ -7,4 +7,3 @@
   roles:
     - apache2
     - php5-fpm
-    - { role: achaussier.mysql-server }
