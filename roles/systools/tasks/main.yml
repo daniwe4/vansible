@@ -1,0 +1,16 @@
+---
+# File: roles/systools/tasks/main.yml
+
+- name:           install | ensure that non-free packages are used
+  replace:
+    dest:         /etc/apt/sources.list
+    regexp:       '(^deb(-src?) http(s?):\/\/.*\/.* main$)'
+    replace:      '\1 non-free'
+
+- name:           install | enforce update of apt cache
+  apt:            update_cache=yes
+
+- name:           install | ensure that vim is installed
+  apt:            name="{{item}}" state=latest update_cache=yes cache_valid_time=3600
+  with_items:     "{{sys_packages}}"
+  when:           "{{sys_packages}}"

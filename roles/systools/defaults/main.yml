@@ -1,0 +1,6 @@
+---
+# File: roles/systools/defaults/main.yml
+# Packages to install
+sys_packages:
+  - vim
+  - git
