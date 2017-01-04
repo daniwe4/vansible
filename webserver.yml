@@ -5,5 +5,7 @@
   become: yes
   become_method: sudo
   roles:
+    - systools
     - apache2
     - php5-fpm
+    - InstILIAS
