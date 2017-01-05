@@ -4,3 +4,8 @@
 sys_packages:
   - vim
   - git
+  - zsh
+  - phpunit
+
+zsh_theme: aussiegeek
+user: root
