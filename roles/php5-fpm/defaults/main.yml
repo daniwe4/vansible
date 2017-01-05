@@ -12,6 +12,7 @@ php5_packages:
   - php5-imagick
   - php5-mysql
   - php5-xsl
+  - libapache2-mod-php5
 
 # Configuration
 php5_timezone:  Europe/Berlin

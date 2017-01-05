@@ -33,7 +33,7 @@
   when:           "{{apache2_sites}}"
 
 - name:           sites | ensure that VirtualHosts are configured
-  template:       src=roles/apache2/templates/vhost.conf.j2 dest=/etc/apache2/sites-available/"{{item.name}}".conf
+  template:       src=roles/apache2/templates/vhost.conf.j2 dest=/etc/apache2/sites-available/{{item.name}}.conf
   with_items:     "{{apache2_sites}}"
   notify:         apache2 restart
   when:           "{{apache2_sites}}"

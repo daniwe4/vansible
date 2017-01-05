@@ -8,4 +8,6 @@
     - systools
     - apache2
     - php5-fpm
+    - mysql
+    - { role: achaussier.phpmyadmin }
     - InstILIAS
