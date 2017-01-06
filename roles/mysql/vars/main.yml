@@ -1,4 +1,6 @@
 ---
+# File: roles/mysql/vars/main.yml
+
 env:
  RUNLEVEL: 1
 
