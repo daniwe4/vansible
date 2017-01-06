@@ -1,0 +1,25 @@
+---
+
+- name : create phpmyadmin database if necessary
+  mysql_db :
+    name  : "{{ phpmyadmin_db_name }}"
+    state : present
+    login_user     : "{{ phpmyadmin_db_server.user }}"
+    login_host     : "{{ phpmyadmin_db_server.host }}"
+    login_password : "{{ phpmyadmin_db_server.password }}"
+  register : phpmyadmin_database_created
+
+
+- name : manage mysql phpmyadmin accounts
+  mysql_user :
+    name     : "{{ phpmyadmin_db_account.user }}"
+    host     : "{{ item }}"
+    password : "{{ phpmyadmin_db_account.password }}"
+    state    : present
+    priv     : "{{ phpmyadmin_db_account.privileges | join('/') }}"
+    login_host     : "{{ phpmyadmin_db_server.host }}"
+    login_user     : "{{ phpmyadmin_db_server.user }}"
+    login_password : "{{ phpmyadmin_db_server.password }}"
+  with_items :
+    - "{{ ansible_hostname }}"
+    - "{{ ansible_default_ipv4.address }}"

@@ -27,4 +27,5 @@ apache2_sites:
     php_socket:   /var/run/php5-fpm.sock
 
 # Disabled sites:
-apache2_sites_disabled: []
+apache2_sites_disabled: 
+  - name: 000-default

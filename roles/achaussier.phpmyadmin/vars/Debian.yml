@@ -1,0 +1,21 @@
+---
+
+# Debian specific variables
+phpmyadmin_packages :
+  - phpmyadmin
+
+phpmyadmin_dbconfig_state : present
+
+# dbconfig settings
+phpmyadmin_dbconfig_file       : "/etc/dbconfig-common/phpmyadmin.conf"
+phpmyadmin_dbconfig_file_owner : "root"
+phpmyadmin_dbconfig_file_group : "root"
+phpmyadmin_dbconfig_file_mode  : "0600"
+
+phpmyadmin_dbconfig_install : False
+phpmyadmin_dbconfig_upgrade : False
+phpmyadmin_dbconfig_remove  : ""
+
+phpmyadmin_dbconfig_ssl : ""
+phpmyadmin_dbconfig_authmethod_admin : ""
+phpmyadmin_dbconfig_authmethod_user  : ""

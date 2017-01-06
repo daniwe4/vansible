@@ -1,0 +1,27 @@
+---
+
+- name : install dbconfig-common package
+  apt  :
+    name  : dbconfig-common
+    state : "{{ phpmyadmin_dbconfig_state }}"
+    update_cache     : True
+    cache_valid_time : 3600
+
+
+- name     : pre-configure PHPMyAdmin database
+  template :
+    src   : "{{ role_path }}/templates/dbconfig_phpmyadmin.conf.j2"
+    dest  : "{{ phpmyadmin_dbconfig_file }}"
+    owner : "{{ phpmyadmin_dbconfig_file_owner }}"
+    group : "{{ phpmyadmin_dbconfig_file_group }}"
+    mode  : "{{ phpmyadmin_dbconfig_file_mode }}"
+
+
+- name : install phpmyadmin packages
+  apt  :
+    name  : "{{ item }}"
+    state : "{{ phpmyadmin_package_state }}"
+    update_cache     : True
+    cache_valid_time : 3600
+  register   : install_phpmyadmin_package
+  with_items : "{{ phpmyadmin_packages }}"
