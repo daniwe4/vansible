@@ -1,4 +1,5 @@
 ---
+# File: roles/mysql/vars/Debian.yml
 
 mysql_pkgs:
   - python-selinux

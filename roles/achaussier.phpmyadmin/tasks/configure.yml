@@ -2,31 +2,31 @@
 
 # Configure tasks for phpmyadmin
 
-- name     : Import PHPMyAdmin schema
-  mysql_db :
-    name  : "{{ phpmyadmin_control_database | default('phpmyadmin') }}"
-    state : import
-    target : "{{ phpmyadmin_database_import_file }}"
-    login_user     : "{{ phpmyadmin_db_server.user }}"
-    login_password : "{{ phpmyadmin_db_server.password }}"
+- name:             mysql | Import PHPMyAdmin schema
+  mysql_db:
+    name:           "{{ phpmyadmin_control_database | default('phpmyadmin') }}"
+    state:          import
+    target:         "{{ phpmyadmin_database_import_file }}"
+    login_user:     "{{ phpmyadmin_db_server.user }}"
+    login_password: "{{ phpmyadmin_db_server.password }}"
   when:
-    - phpmyadmin_database_created.changed == True
-    - phpmyadmin_database_import_schema == True
+                    - phpmyadmin_database_created.changed == True
+                    - phpmyadmin_database_import_schema == True
 
 
-- name : Activate default apache configuration
-  file :
-    src   : "{{ phpmyadmin_website_apache_config_file }}"
-    dest  : "{{ phpmyadmin_website_apache_active_link }}"
-    state : link
-  register : activate_phpmyadmin
-  when :
-    - phpmyadmin_website_webserver_used == "apache"
-    - phpmyadmin_website_use_default_apache_conf == True
+- name:             file | Activate default apache configuration
+  file:
+    src:            "{{ phpmyadmin_website_apache_config_file }}"
+    dest:           "{{ phpmyadmin_website_apache_active_link }}"
+    state:          link
+  register:         activate_phpmyadmin
+  when:
+                    - phpmyadmin_website_webserver_used == "apache"
+                    - phpmyadmin_website_use_default_apache_conf == True
 
 
-- name : Restart webserver
-  service :
-    name  : "{{ phpmyadmin_website_webserver_service_name }}"
-    state : "{{ phpmyadmin_website_webserver_state }}"
-  when : activate_phpmyadmin.changed
+- name:             service | Restart webserver
+  service:
+    name:           "{{ phpmyadmin_website_webserver_service_name }}"
+    state:          "{{ phpmyadmin_website_webserver_state }}"
+  when:             activate_phpmyadmin.changed

@@ -1,37 +1,40 @@
 ---
 # File: roles/systools/tasks/main.yml
 
-- name:           install | ensure that non-free packages are used
+- name:         install | ensure that non-free packages are used
   replace:
-    dest:         /etc/apt/sources.list
-    regexp:       '(^deb(-src?) http(s?):\/\/.*\/.* main$)'
-    replace:      '\1 non-free'
+    dest:       /etc/apt/sources.list
+    regexp:     '(^deb(-src?) http(s?):\/\/.*\/.* main$)'
+    replace:    '\1 non-free'
 
-- name:           install | enforce update of apt cache
-  apt:            update_cache=yes
+- name:         install | enforce update of apt cache
+  apt:          update_cache=yes
 
-- name:           install | ensure that vim is installed
-  apt:            name="{{item}}" state=latest update_cache=yes cache_valid_time=3600
-  with_items:     "{{sys_packages}}"
-  when:           "{{sys_packages}}"
+- name:         install | ensure that vim is installed
+  apt:          name="{{item}}" state=latest update_cache=yes cache_valid_time=3600
+  with_items:   "{{sys_packages}}"
+  when:         "{{sys_packages}}"
 
-- name: Clone oh-my-zsh repo
-  git: repo=https://github.com/robbyrussell/oh-my-zsh.git dest=/root/.oh-my-zsh update=no
+- name:         git | Clone oh-my-zsh repo
+  git:          repo=https://github.com/robbyrussell/oh-my-zsh.git dest=/root/.oh-my-zsh update=no
 
-- name: Create conf folder in home directory
-  file: path=/root/conf/ state=directory owner="{{user}}"
+- name:         file | Create conf folder in home directory
+  file:         path=/root/conf/ state=directory owner="{{user}}"
 
-- name: deploy .zshrc
-  template: src=roles/systools/templates/zshrc.in dest=/root/conf/zshrc owner={{user}}
+- name:         template | deploy .zshrc
+  template:     src=roles/systools/templates/zshrc.in dest=/root/conf/zshrc owner={{user}}
 
-- name: remove standard zshrc
-  file: path=/root/.zshrc state=absent
+- name:         file | remove standard zshrc
+  file:         path=/root/.zshrc state=absent
 
-- name: symlink zshrc
-  file: path=/root/.zshrc src=/root/conf/zshrc state=link owner={{user}}
+- name:         file | symlink zshrc
+  file:         path=/root/.zshrc src=/root/conf/zshrc state=link owner={{user}}
 
-- name: Set zsh as default shell
-  user: name={{user}} shell=/bin/zsh
+- name:         user | Set zsh as default shell
+  user:         name={{user}} shell=/bin/zsh
 
-- name: disable ipv6
-  copy: src=roles/systools/templates/01-disable-ipv6.conf dest=/etc/sysctl.d/01-disable-ipv6.conf owner={{user}} mode="u+x"
+- name:         copy | disable ipv6 on every boot
+  copy:         src=roles/systools/templates/01-disable-ipv6.conf dest=/etc/sysctl.d/01-disable-ipv6.conf owner={{user}} mode="u+x"
+
+- name:         command | disable ipv6 now
+  command:      echo 1 > /proc/sys/net/ipv6/conf/all/disable_ipv6
