@@ -3,4 +3,4 @@
 # Clone InstILIAS to /var/www/default
 
 - name: git | get InstILIAS
-  git:  repo=git://github.com/conceptsandtraining/InstILIAS.git dest=/home/ilias/share
+  git:  repo=git://github.com/conceptsandtraining/InstILIAS.git dest=/home/vagrant/share
