@@ -16,3 +16,9 @@
   become_method: sudo
   roles:
     - InstILIAS
+
+- hosts: generali
+  become: yes
+  become_method: sudo
+  roles:
+    - catILIAS
