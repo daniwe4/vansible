@@ -11,14 +11,14 @@
     - mysql
     - achaussier.phpmyadmin
   
-- hosts: ilias
-  become: yes
-  become_method: sudo
-  roles:
-    - InstILIAS
+# - hosts: ilias
+#   become: yes
+#   become_method: sudo
+#   roles:
+#     - InstILIAS
 
-- hosts: generali
-  become: yes
-  become_method: sudo
-  roles:
-    - catILIAS
+# - hosts: generali
+#   become: yes
+#   become_method: sudo
+#   roles:
+#     - catILIAS
