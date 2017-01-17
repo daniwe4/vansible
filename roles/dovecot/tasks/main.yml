@@ -1,0 +1,6 @@
+---
+# File: roles/dovecot/tasks/main.yml
+# Install Dovecot
+
+- name: install | installs dovecot
+  apt:  name=dovecot-imapd state=latest update_cache=yes cache_valid_time=3600

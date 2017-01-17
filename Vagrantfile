@@ -1,48 +1,53 @@
-# File: Vagrantfile
+# -*- mode: ruby -*-
+# vim: ft=ruby
+
+# ---- Configuration Part -----
+NAME = "dawei"
+
+# get IP - addition per defined user 
+priv_ip = { 
+			"rk" 	=> "0",
+ 			"sh" 	=> "2",
+ 			"dawei" => "4",
+ 			"dk" 	=> "6",
+ 			"nh" 	=> "8"
+ 		   }
+
+# virtual machines that will be installed
+machines = [ 
+			   # "trunk",
+			   # "generali",
+			   # "seepex",
+			   # "panasonic",
+			   "mail"
+		   ]
+
+nodes = Array.new() { Array.new() }
+machines.each_with_index do |serv, index|
+	nodes.push( { :hostname => serv, :ip => '192.168.6.' + priv_ip[NAME] + "#{index+2}"} )
+end
 
 Vagrant.configure("2") do |config|
+	# configurate VirtualBox
+	config.vm.provider "virtualbox" do |vb|
+		vb.memory = 512
+	end
+
 	config.vm.box = "debian/jessie64"
 
-	# config.vm.define "Volker" do |vo|
-	# 	vo.vm.hostname = "VOLKER"
-	# 	vo.vm.network "public_network", ip: "192.168.6.95", :netmask => "255.255.248.0", :bridge => "en0: Ethernet", :gateway => "192.168.1.1"
-	# 	vo.vm.synced_folder "/Users/dw/share/Volker", "/home/vagrant/share", type: "sshfs", create: true
-	# end
-
-	# config.vm.define "ILIAS" do |il|
-	# 	il.vm.hostname = "ILIAS"
-	# 	il.vm.network "private_network", ip: "10.100.0.10"
-	# 	# il.vm.network "public_network" , ip: "10.100.0.10", bridge: "en0: Ethernet", use_dhcp_assigned_default_route: "true"
-	# 	il.vm.synced_folder "/Users/dw/share/ILIAS", "/home/vagrant/share", type: "sshfs", create: true
-	# end
-
-	# config.vm.define "GENERALI" do |ge|
-	# 	ge.vm.hostname = "GENERALI"
-	# 	ge.vm.network "private_network", ip: "10.100.0.20"
-	# 	ge.vm.synced_folder "/Users/dw/share/GENERALI", "/home/vagrant/share", type: "sshfs", create: true
-	# end
-
-	config.vm.define "daniel" do |ge|
-		ge.vm.hostname = "daniel"
-		ge.vm.network "public_network", ip: "192.168.6.93", :netmask => "255.255.248.0", :bridge => "en0: Ethernet", :gateway => "192.168.1.1"
-		ge.vm.synced_folder "/Users/dw/share/daniel", "/home/vagrant/share", type: "sshfs", create: true
+	# do for each virtual machine
+	nodes.each do |node|
+		config.vm.define node[:hostname] do |nodeconfig|
+			puts node[:ip]
+			nodeconfig.vm.hostname = node[:hostname]
+			nodeconfig.vm.network :private_network, ip: node[:ip]
+		end
 	end
 
 	config.vm.provision :ansible do |ansible|
 		ansible.playbook = "playbook.yml"
-		ansible.groups = { "webserver" => ["daniel"]}
+		ansible.groups = { "webserver" => [""], 
+						   "generali" => [""],
+						   "mail" => ["mail"] }
 	end
-
-	# # Picks up from any failed runs
-	# # Run this with: "vagrant provision --provision-with resume"
-	# config.vm.provision "resume", type: "ansible" do |resume|
-	# 	resume.playbook = "playbook.yml"
-	# 	resume.raw_arguments = "--limit @/home/user/playbook.retry"
-	# end
 end
-
-
-
-
-
-

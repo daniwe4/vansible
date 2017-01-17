@@ -16,10 +16,7 @@
   when:         "{{sys_packages}}"
 
 - name:         copy | disable ipv6 on every boot
-  copy:         src=roles/systools/templates/01-disable-ipv6.conf dest=/etc/sysctl.d/01-disable-ipv6.conf owner={{user}} mode="u+x"
+  copy:         src=roles/systools/templates/01-disable-ipv6.conf dest=/etc/sysctl.d/01-disable-ipv6.conf owner=root mode="u+x"
 
 - name:         command | disable ipv6 now
   command:      echo 1 > /proc/sys/net/ipv6/conf/all/disable_ipv6
-
-# - name:         Copy /etc/sudoers.d/ssh_auth_sock into place
-#   copy:         content='Defaults env_keep += "SSH_AUTH_SOCK"' dest='/etc/sudoers.d/ssh_auth_sock' validate='visudo -cf %s' owner=root group=root mode=0440

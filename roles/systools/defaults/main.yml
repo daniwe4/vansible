@@ -4,8 +4,6 @@
 sys_packages:
   - vim
   - git
-  - phpunit
   - curl
   - zip
   - unzip
-  - dovecot-imapd

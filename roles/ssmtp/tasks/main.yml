@@ -1,0 +1,13 @@
+---
+# File: roles/ssmtp/tasks/main.yml
+# Instals and configurate ssmtp
+
+- name: install | installs ssmtp
+  apt:  name=ssmtp state=latest update_cache=yes cache_valid_time=3600
+
+- name:         file | remove standard config file
+  file:         path=/etc/ssmtp/ssmtp.conf state=absent
+
+- name:         template | deploy our config
+  template:     src=roles/ssmtp/templates/ssmtp.conf dest=/etc/ssmtp/ssmtp.conf owner=root
+

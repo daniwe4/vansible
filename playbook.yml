@@ -12,17 +12,20 @@
     - mysql
     - phpmyadmin
     - composer
-    - exim
+    - ssmtp
 
   
-# - hosts: ilias
-#   become: yes
-#   become_method: sudo
-#   roles:
-#     - InstILIAS
+- hosts: ilias
+  roles:
+    - InstILIAS
 
-# - hosts: generali
-#   become: yes
-#   become_method: sudo
-#   roles:
-#     - catILIAS
+- hosts: generali
+  roles:
+    - catILIAS
+
+- hosts: mail
+  become: yes
+  become_method: sudo
+  roles:
+    - exim
+    - dovecot

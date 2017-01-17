@@ -1,0 +1,7 @@
+---
+# File: roles/php-tools/default/main.yml
+
+php_tools:
+  - phpunit
+  - composer
+  - dicto
