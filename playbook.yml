@@ -6,10 +6,14 @@
   become_method: sudo
   roles:
     - systools
+    - oh-my-zsh
     - apache2
-    - php5-fpm
+    - php5
     - mysql
-    - achaussier.phpmyadmin
+    - phpmyadmin
+    - composer
+    - exim
+
   
 # - hosts: ilias
 #   become: yes

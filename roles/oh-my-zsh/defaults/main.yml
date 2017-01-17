@@ -1,0 +1,5 @@
+# File: roles/oh-my-zsh/defaults/main.yml
+# Default vars for installation
+
+zsh_theme: aussiegeek
+user: root

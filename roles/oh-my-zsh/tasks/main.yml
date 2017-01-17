@@ -1,0 +1,24 @@
+---
+# File: roles/oh-my-zsh/tasks/main.yml
+# Description: oh-my-zsh installation and configuration
+
+- name:         install | ensure that zsh is installed
+  apt:          name=zsh state=latest update_cache=yes cache_valid_time=3600
+
+- name:         git | Clone oh-my-zsh repo
+  git:          repo=https://github.com/robbyrussell/oh-my-zsh.git dest=/root/.oh-my-zsh update=no
+
+- name:         file | Create conf folder in home directory
+  file:         path=/root/conf/ state=directory owner="{{user}}"
+
+- name:         template | deploy .zshrc
+  template:     src=roles/oh-my-zsh/templates/zshrc.in dest=/root/conf/zshrc owner={{user}}
+
+- name:         file | remove standard zshrc
+  file:         path=/root/.zshrc state=absent
+
+- name:         file | symlink zshrc
+  file:         path=/root/.zshrc src=/root/conf/zshrc state=link owner={{user}}
+
+- name:         user | Set zsh as default shell
+  user:         name={{user}} shell=/bin/zsh

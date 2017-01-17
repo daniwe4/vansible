@@ -1,0 +1,37 @@
+# -*- mode: ruby -*-
+# vim: ft=ruby
+
+# ---- Configuration Part -----
+NAME = "dawei"
+
+# get IP - addition per defined user 
+priv_ip = { "rk" => "0", "sh" => "2", "dawei" => "4", "dk" => "6", "nh" => "8"}
+
+
+# define the virtuel machines
+nodes = [
+	{ :hostname => 'GENERALI', :ip => '192.168.6' + priv_ip[NAME] + '2'}.
+	{ :hostname => 'SEEPEX', :ip => '192.168.6' + priv_ip[NAME] + '.3'},
+	{ :hostname => 'PANASONIC', :ip => '192.168.6' + priv_ip[NAME] + '4'},
+	{ :hostname => 'InstILIAS', :ip => '192.168.6' + priv_ip[NAME] + '5'}
+]
+
+
+Vagrant.configure("2") do |config|
+	config.vm.box = "debian/jessie64"
+
+	# do for each virtual machine
+	nodes.each do |node|
+		config.vm.define node[:hostname] do |nodeconfig|
+			puts node[:ip]
+			nodeconfig.vm.hostname = node[:hostname]
+			nodeconfig.vm.network :private_network, ip: node[:ip]
+		end
+	end
+
+	config.vm.provision :ansible do |ansible|
+		ansible.playbook = "playbook.yml"
+		ansible.
+		ansible.groups = { "webserver" => ["GENERALI", "SEEPEX", "PANASONIC", "InstILIAS"], "generali" => ["GENERALI"] }
+	end
+end

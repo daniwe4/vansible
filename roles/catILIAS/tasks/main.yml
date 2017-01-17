@@ -3,4 +3,4 @@
 # Clone InstILIAS to /var/www/default
 
 - name: git | get catILIAS
-  git:  repo=git://github.com/conceptsandtraining/ILIAS.git dest=/home/vagrant/share
+  git:  repo=git://github.com/conceptsandtraining/ILIAS.git dest=/home/vagrant/share/repos/ version=4_4_seepex
