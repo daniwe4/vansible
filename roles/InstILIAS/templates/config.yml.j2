@@ -1,7 +1,7 @@
 ---
 client:
-    data_dir: /home/vagrant/share/repo/ILIAS
-    name: PANASONIC
+    data_dir: /home/vagrant/share
+    name: ILIAS
     password_encoder: bcrypt
     session_expire: 120
 
@@ -29,9 +29,8 @@ setup:
 
 tools:
     convert: /usr/bin/convert
-    zip: /bin/zip
-    unzip: /bin/unzip
-    java: /usr/bin/java
+    zip: usr/bin/zip
+    unzip: usr/bin/unzip
 
 log:
     path: /home/vagrant/share
@@ -39,7 +38,7 @@ log:
 
 git_branch:
     url: https://github.com/ILIAS-eLearning/ILIAS.git
-    branch: release_5-1
+    branch: release_5-0
 
 https_auto_detect:
     enabled: 0

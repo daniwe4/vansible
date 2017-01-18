@@ -6,7 +6,7 @@
     state : present
     login_user     : "{{ phpmyadmin_db_server.user }}"
     login_host     : "{{ phpmyadmin_db_server.host }}"
-    login_password : "{{ phpmyadmin_db_server.password }}"
+    login_password : "{{ master_pass }}"
   register : phpmyadmin_database_created
 
 
@@ -19,7 +19,7 @@
     priv     : "{{ phpmyadmin_db_account.privileges | join('/') }}"
     login_host     : "{{ phpmyadmin_db_server.host }}"
     login_user     : "{{ phpmyadmin_db_server.user }}"
-    login_password : "{{ phpmyadmin_db_server.password }}"
+    login_password : "{{ master_pass }}"
   with_items :
     - "{{ ansible_hostname }}"
     - "{{ ansible_default_ipv4.address }}"

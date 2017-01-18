@@ -8,3 +8,6 @@
 
 - name:           shell | install composer
   shell:          curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
+
+- name:           git | clone dicto
+  git:            repo=https://github.com/lechimp-p/dicto.php.git dest=/home/vagrant/share/dicto
