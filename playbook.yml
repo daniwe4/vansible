@@ -11,12 +11,20 @@
     - php5
     - mysql
     - phpmyadmin
-    - composer
     - ssmtp
 
   
 - hosts: ilias
+  become: yes
+  become_method: sudo
   roles:
+    - systools
+    - oh-my-zsh
+    - apache2
+    - php5
+    - mysql
+    - php-tools
+    - phpmyadmin
     - InstILIAS
 
 - hosts: generali

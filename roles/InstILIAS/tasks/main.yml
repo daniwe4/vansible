@@ -3,9 +3,19 @@
 # Clone InstILIAS to /var/www/default
 
 - name: git | get InstILIAS
-  git:  repo=git://github.com/conceptsandtraining/InstILIAS.git dest=/home/vagrant/share/repos
+  git:  repo=git://github.com/conceptsandtraining/InstILIAS.git dest=/home/vagrant/InstILIAS
+
+- name: shell | composer install
+  shell: composer install
+  args:
+    chdir: InstILIAS
 
 - name: file | copy InstILIAS config file
-  copy:
-    src:  ../templates/config.yml
-    dest: /home/vagrant/share/
+  template:
+    src:  roles/InstILIAS/templates/config.yml.j2
+    dest: /home/vagrant/InstILIAS/src/config.yaml
+
+- name: shell | start InstILIAS
+  shell: php src/bin/install.php src/config.yaml non_interactiv
+  args:
+    chdir: /home/vagrant/InstILIAS

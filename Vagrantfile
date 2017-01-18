@@ -19,13 +19,15 @@ machines = [
 			   # "generali",
 			   # "seepex",
 			   # "panasonic",
-			   "mail"
 		   ]
 
 nodes = Array.new() { Array.new() }
 machines.each_with_index do |serv, index|
 	nodes.push( { :hostname => serv, :ip => '192.168.6.' + priv_ip[NAME] + "#{index+2}"} )
 end
+
+# Only use one mail server per ip range
+nodes.push( { :hostname => 'mailer', :ip => '192.168.6.250' } )
 
 Vagrant.configure("2") do |config|
 	# configurate VirtualBox
@@ -41,13 +43,15 @@ Vagrant.configure("2") do |config|
 			puts node[:ip]
 			nodeconfig.vm.hostname = node[:hostname]
 			nodeconfig.vm.network :private_network, ip: node[:ip]
+			nodeconfig.vm.synced_folder "/Users/dw/share/#{node[:hostname]}", "/home/vagrant/share", type: "sshfs", create: true
 		end
 	end
 
 	config.vm.provision :ansible do |ansible|
 		ansible.playbook = "playbook.yml"
-		ansible.groups = { "webserver" => [""], 
-						   "generali" => [""],
-						   "mail" => ["mail"] }
+		ansible.groups = { "webserver" => ["trunk", "generali", "seepex", "panasonic"],
+						   "ilias" => ["mailer"],
+						   "generali" => ["generali"],
+						   "mail" => ["mailer"] }
 	end
 end

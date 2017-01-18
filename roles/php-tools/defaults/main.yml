@@ -3,5 +3,3 @@
 
 php_tools:
   - phpunit
-  - composer
-  - dicto
