@@ -12,19 +12,21 @@
     - mysql
     - phpmyadmin
     - ssmtp
+    - ssh-conf
+    - InstILIAS
 
   
 - hosts: ilias
   become: yes
   become_method: sudo
   roles:
-    - systools
-    - oh-my-zsh
-    - apache2
-    - php5
-    - mysql
-    - php-tools
-    - phpmyadmin
+    # - systools
+    # - oh-my-zsh
+    # - apache2
+    # - php5
+    # - mysql
+    # - php-tools
+    # - phpmyadmin
     - InstILIAS
 
 - hosts: generali
@@ -35,5 +37,15 @@
   become: yes
   become_method: sudo
   roles:
-    - exim
-    - dovecot
+    # - exim
+    # - dovecot
+    - systools
+    - oh-my-zsh
+    - apache2
+    - php5
+    - composer
+    - mysql
+    - phpmyadmin
+    - ssmtp
+    - ssh-conf
+    - InstILIAS

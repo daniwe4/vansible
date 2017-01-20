@@ -1,6 +1,6 @@
 ---
 client:
-    data_dir: /home/vagrant/share
+    data_dir: /home/vagrant/data
     name: ILIAS
     password_encoder: bcrypt
     session_expire: 120
@@ -20,8 +20,8 @@ language:
         - de
 
 server:
-    http_path: http://192.168.6.250/repo
-    absolute_path: /home/vagrant/share/repo/ILIAS
+    http_path: http://192.168.6.250/ILIAS
+    absolute_path: /var/www/default/ILIAS
     timezone: Europe/Berlin
 
 setup:
@@ -31,14 +31,14 @@ tools:
     convert: /usr/bin/convert
     zip: usr/bin/zip
     unzip: usr/bin/unzip
-
+    java: usr/bin/java
 log:
-    path: /home/vagrant/share
+    path: /home/vagrant/data
     file_name: ilias.log
 
 git_branch:
     url: https://github.com/ILIAS-eLearning/ILIAS.git
-    branch: release_5-0
+    branch: {{ current_ilias_version }}
 
 https_auto_detect:
     enabled: 0

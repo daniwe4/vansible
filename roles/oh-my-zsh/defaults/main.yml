@@ -2,4 +2,4 @@
 # Default vars for installation
 
 zsh_theme: aussiegeek
-user: root
+ohmyzsh_user: root

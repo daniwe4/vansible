@@ -9,16 +9,16 @@
   git:          repo=https://github.com/robbyrussell/oh-my-zsh.git dest=/root/.oh-my-zsh update=no
 
 - name:         file | Create conf folder in home directory
-  file:         path=/root/conf/ state=directory owner="{{user}}"
+  file:         path=/root/conf/ state=directory owner="{{ohmyzsh_user}}"
 
 - name:         template | deploy .zshrc
-  template:     src=roles/oh-my-zsh/templates/zshrc.in dest=/root/conf/zshrc owner={{user}}
+  template:     src=roles/oh-my-zsh/templates/zshrc.in dest=/root/conf/zshrc owner={{ohmyzsh_user}}
 
 - name:         file | remove standard zshrc
   file:         path=/root/.zshrc state=absent
 
 - name:         file | symlink zshrc
-  file:         path=/root/.zshrc src=/root/conf/zshrc state=link owner={{user}}
+  file:         path=/root/.zshrc src=/root/conf/zshrc state=link owner={{ohmyzsh_user}}
 
 - name:         user | Set zsh as default shell
-  user:         name={{user}} shell=/bin/zsh
+  user:         name={{ohmyzsh_user}} shell=/bin/zsh
