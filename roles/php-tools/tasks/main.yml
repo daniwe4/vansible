@@ -1,0 +1,13 @@
+---
+# File: roles/php-tools/tasks/main.yml
+
+- name:           apt | ensure that all needed php-tools are installed
+  apt:            name={{item}} state=latest
+  with_items:     "{{php_tools}}"
+  when:           "{{php_tools}}"
+
+- name:           shell | install composer
+  shell:          curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
+
+- name:           git | clone dicto
+  git:            repo=https://github.com/lechimp-p/dicto.php.git dest=/home/vagrant/share/dicto

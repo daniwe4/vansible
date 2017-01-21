@@ -1,22 +1,52 @@
-# File: Vagrantfile
+# -*- mode: ruby -*-
+# vim: ft=ruby
+
+# ---- Configuration Part -----
+require 'yaml'
+
+# get IP - addition per defined user 
+priv_ip = {}
+server_groups = {}
+nodes = Array.new() { Array.new() }
+vars = YAML.load_file('group_vars/all/config.yml')
+
+NAME = vars["name"]
+
+vars["user"].each do |index, ip|
+	priv_ip[index] = "#{ip}"
+end
+
+vars["machines"].each do |index, machine|
+	nodes.push( { :hostname => machine, :ip => '192.168.6.' + priv_ip[NAME] + "#{index}"} )
+end
+
+vars["groups"].each do |index, group|
+	server_groups[index] = group
+end
+
+# Only use one mail server per ip range
+nodes.push( { :hostname => 'mailer', :ip => '192.168.6.250' } )
 
 Vagrant.configure("2") do |config|
-	config.vm.box = "debian/jessie64"
-	
-	config.vm.define "ILIAS" do |il|
-		il.vm.hostname = "ILIAS"
-		il.vm.network "forwarded_port", guest: 80, host: 8080
-		il.vm.synced_folder "/home/dw/share/ILIAS", "/home/vagrant/share", type: "sshfs", create: true
+	# configurate VirtualBox
+	config.vm.provider "virtualbox" do |vb|
+		vb.memory = 512
 	end
 
-	config.vm.define "GENERALI" do |ge|
-		ge.vm.hostname = "GENERALI"
-		ge.vm.network "forwarded_port", guest: 80, host: 8090
-		ge.vm.synced_folder "/home/dw/share/GENERALI", "/home/vagrant/share", type: "sshfs", create: true
+	config.vm.box = "debian/jessie64"
+
+	# do for each virtual machine
+	nodes.each do |node|
+		config.vm.define node[:hostname] do |nodeconfig|
+			puts node[:ip]
+			nodeconfig.vm.hostname = node[:hostname]
+			nodeconfig.vm.network :private_network, ip: node[:ip]
+		end
 	end
 
 	config.vm.provision :ansible do |ansible|
 		ansible.playbook = "playbook.yml"
-		ansible.groups = { "webserver" => ["ILIAS", "GENERALI"],"ilias" => ["ILIAS"], "generali" => ["GENERALI"]}
+		ansible.limit = "all"
+		ansible.groups = { "webserver" => ["seepex"], "mail" => ["mailer"] }#server_groups
 	end
 end

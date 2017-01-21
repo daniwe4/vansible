@@ -37,7 +37,7 @@ phpmyadmin_db_type   : "mysql"
 phpmyadmin_db_server :
   basepath : ""
   user     : root
-  password : "abcdef"
+  password : ""
   host     : localhost
   port     : 3306
 

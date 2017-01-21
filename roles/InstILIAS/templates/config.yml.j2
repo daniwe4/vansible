@@ -1,0 +1,80 @@
+---
+client:
+    data_dir: /home/vagrant/data
+    name: ILIAS
+    password_encoder: bcrypt
+    session_expire: 120
+
+database:
+    host: localhost
+    database: ilias
+    user: root
+    password: {{ master_pass }}
+    engine: innodb
+    encoding: utf8_general_ci
+
+language:
+    default: en
+    available:
+        - en
+        - de
+
+server:
+    http_path: http://192.168.6.250/ILIAS
+    absolute_path: /var/www/default/ILIAS
+    timezone: Europe/Berlin
+
+setup:
+    master_password: {{ master_pass }}
+
+tools:
+    convert: /usr/bin/convert
+    zip: usr/bin/zip
+    unzip: usr/bin/unzip
+    java: usr/bin/java
+log:
+    path: /home/vagrant/data
+    file_name: ilias.log
+
+git_branch:
+    url: https://github.com/ILIAS-eLearning/ILIAS.git
+    branch: {{ current_ilias_version }}
+
+https_auto_detect:
+    enabled: 0
+    header_name: X-FORWARDED-SCHEME
+    header_value: https
+
+user:
+    registration: 1
+    link_lifetime: 86400
+
+password_settings:
+    change_on_first_login: 0
+    use_special_chars: 0
+    numbers_and_chars: 1
+    min_length: 2
+    max_length: 0
+    num_upper_chars: 0
+    num_lower_chars: 0
+    expire_in_days: 0
+    forgot_password_aktive: 1
+    max_num_login_attempts: 0
+
+editor:
+    enable_tinymce: 1
+    repo_page_editor:
+        enable: 0
+        heavy_marked: 1
+        marked: 1
+        importand: 1
+        superscript: 1
+        subscript: 1
+        comment: 1
+        quote: 1
+        accent: 1
+        code: 1
+        latex: 1
+        footnote: 1
+        external_link: 1
+

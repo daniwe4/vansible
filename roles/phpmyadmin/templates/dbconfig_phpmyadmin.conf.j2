@@ -31,7 +31,7 @@ dbc_dbuser='{{ phpmyadmin_db_account.user }}'
 # dbc_dbpass: database user password
 #   the password to use with the above username when connecting
 #   to a database, if one is required
-dbc_dbpass='{{ phpmyadmin_db_account.password }}'
+dbc_dbpass='{{ master_pass }}'
 
 # dbc_dbserver: database host.
 #   leave unset to use localhost (or a more efficient local method

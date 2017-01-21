@@ -6,19 +6,46 @@
   become_method: sudo
   roles:
     - systools
+    - oh-my-zsh
     - apache2
-    - php5-fpm
+    - php5
     - mysql
-    - achaussier.phpmyadmin
+    - phpmyadmin
+    - ssmtp
+    - ssh-conf
+    - InstILIAS
+
   
 - hosts: ilias
   become: yes
   become_method: sudo
   roles:
+    # - systools
+    # - oh-my-zsh
+    # - apache2
+    # - php5
+    # - mysql
+    # - php-tools
+    # - phpmyadmin
     - InstILIAS
 
 - hosts: generali
+  roles:
+    - catILIAS
+
+- hosts: mail
   become: yes
   become_method: sudo
   roles:
-    - catILIAS
+    # - exim
+    # - dovecot
+    - systools
+    - oh-my-zsh
+    - apache2
+    - php5
+    - composer
+    - mysql
+    - phpmyadmin
+    - ssmtp
+    - ssh-conf
+    - InstILIAS

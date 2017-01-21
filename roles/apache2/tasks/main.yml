@@ -49,3 +49,4 @@
   with_items:     "{{apache2_sites_disabled}}"
   notify:         apache2 restart
   when:           "{{apache2_sites_disabled}}"
+

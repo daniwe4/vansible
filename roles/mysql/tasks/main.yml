@@ -19,8 +19,8 @@
 - name:           service | Start the mysql services Redhat
   service:        name={{ mysql_service }} state=started enabled=yes
 
-- name:           mysql | update mysql root password for all root accounts
-  mysql_user:     name=root host={{ item }} password={{ mysql_root_db_pass }}
+- name:           mysql | update mysql root password for all root accounts {{ master_pass }}
+  mysql_user:     name=root host={{ item }} password={{ master_pass }}
   with_items:
    - "{{ ansible_hostname }}"
    - 127.0.0.1
@@ -28,8 +28,8 @@
    - localhost
   when:           ansible_hostname != 'localhost'
 
-- name:           mysql | update mysql root password for all root accounts
-  mysql_user:     name=root host={{ item }} password={{ mysql_root_db_pass }}
+- name:           mysql | update mysql root password for all root accounts {{ master_pass }}
+  mysql_user:     name=root host={{ item }} password={{ master_pass }}
   with_items:
    - 127.0.0.1
    - ::1

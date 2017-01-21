@@ -1,0 +1,6 @@
+---
+- name: Ensure exim is installed.
+  apt: "name=exim4 state=installed"
+
+- name: Ensure exime-config is installed
+  apt:  name=exim4-config state=installed
