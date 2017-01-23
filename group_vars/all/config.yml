@@ -10,7 +10,7 @@ name: dw
 # Please begin the numeration with 2 
 machines:
   2: seepex
-  #3: generali
+  3: generali
   #4: medicproof
 
 # The number will be used to build a custom ip address.
@@ -27,8 +27,17 @@ master_pass: abcdef
 groups:
   webserver:
     - seepex
-    #- generali
+    - generali
     #- medicproof
 
   mail:
    - mailer
+
+# Role: systools 
+# Enter your prefered tools 
+systools:
+  - vim
+  - git
+  - curl
+  - zip
+  - unzip

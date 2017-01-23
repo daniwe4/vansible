@@ -47,6 +47,6 @@ Vagrant.configure("2") do |config|
 	config.vm.provision :ansible do |ansible|
 		ansible.playbook = "playbook.yml"
 		ansible.limit = "all"
-		ansible.groups = { "webserver" => ["seepex"], "mail" => ["mailer"] }#server_groups
+		ansible.groups = server_groups
 	end
 end

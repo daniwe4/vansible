@@ -9,43 +9,25 @@
     - oh-my-zsh
     - apache2
     - php5
+    - php-tools
     - mysql
     - phpmyadmin
     - ssmtp
     - ssh-conf
-    - InstILIAS
-
-  
-- hosts: ilias
-  become: yes
-  become_method: sudo
-  roles:
-    # - systools
-    # - oh-my-zsh
-    # - apache2
-    # - php5
-    # - mysql
-    # - php-tools
-    # - phpmyadmin
-    - InstILIAS
-
-- hosts: generali
-  roles:
-    - catILIAS
 
 - hosts: mail
   become: yes
   become_method: sudo
   roles:
-    # - exim
-    # - dovecot
-    - systools
-    - oh-my-zsh
-    - apache2
-    - php5
-    - composer
-    - mysql
-    - phpmyadmin
-    - ssmtp
-    - ssh-conf
-    - InstILIAS
+    - exim
+    - dovecot
+    # - systools
+    # - oh-my-zsh
+    # - apache2
+    # - php5
+    # - composer
+    # - mysql
+    # - phpmyadmin
+    # - ssmtp
+    # - ssh-conf
+    # - InstILIAS
