@@ -1,3 +1,2 @@
 ---
 # File: roles/InstILIAS/vars/main.yml
-current_ilias_version: "release_5-1"

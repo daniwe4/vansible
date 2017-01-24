@@ -2,19 +2,15 @@
 # File: group_vars/all/config.yml
 # global config file
 
-# Select one of the initials from the user categorie
+# Enter your password, wich will be used for all roles.
+master_pass: abcdef
+
+# Select one of the initials from the user categorie.
 # e.g dw 
 name: dw
 
-# Define how many machines vagrant should install and their name
-# Please begin the numeration with 2 
-machines:
-  2: seepex
-  3: generali
-  #4: medicproof
-
 # The number will be used to build a custom ip address.
-# Starts at zero and goes to 22 by step 2
+# Starts at zero and goes to 22 by step 2.
 user:
   rk: 0
   sh: 2
@@ -22,22 +18,155 @@ user:
   dk: 6
   nh: 8
 
-master_pass: abcdef
+# Define how many machines vagrant should install and their name.
+# Begin the numeration with 2 .
+machines:
+  #2: seepex
+  3: generali
+  #4: medicproof
+  #5: test
+
+mailserver: false
+
+############################# ATTENTION: Changes in this section requires to run the script "create_pl.py" #############################
+
+# Use this section to define which roles will be install for a group.
+server_roles:
+  - name: webserver
+    roles:
+      # - systools
+      # - apache2
+      # - php5
+      # - php-tools
+      # - mysql
+      # - phpmyadmin
+      # - oh-my-zsh
+      # - ssmtp
+      - ssh-conf
+
+  - name: mailserver
+    roles:
+      - exim
+      - dovecot
 
 groups:
   webserver:
-    - seepex
+    #- seepex
     - generali
     #- medicproof
+    #- test
 
-  mail:
-   - mailer
+  mailserver:
+   #- mailer
 
-# Role: systools 
-# Enter your prefered tools 
+############################# ATTENTION: Changes in this section requires to run the script "create_pl.py" #############################
+
+
+
+
+
+# -------------------- Use the following to edit each role seperatly -------------------------------
+
+# --------  Role: InstILIAS  --------
+# Branch to checkout
+current_ilias_version: release_5-1
+ilias_repo: https://github.com/ILIAS-eLearning/ILIAS.git
+
+
+# --------  Role: apache2  --------
+# Enter your prefered tools. 
+apache2_packages:
+  - apache2
+  - apache2-mpm-worker
+  # - libapache2-mod-fastcgi
+
+# Default modules
+apache2_modules:
+  - rewrite
+  - vhost_alias
+  - headers
+  - expires
+  - filter
+  - actions
+  - suexec
+  #  - fastcgi
+
+# Default vhosts
+apache2_sites:
+  - name:         default
+    owner:        www-data
+    servername:   localhost
+    doc_root:     /var/www/default
+    php:          true
+    php_socket:   /var/run/php5-fpm.sock
+
+# Disabled sites:
+apache2_sites_disabled: 
+  - name: 000-default
+
+# --------  Role: catILIAS  --------
+# Enter your prefered tools. 
+# If it works with 'apt install' it will work here too.
+
+
+# --------  Role: exim  --------
+# Main configuration type. Should be 'internet' for public mail sending, or
+# 'local' if mail should only be delivered locally. See Exim documentation for
+# other options.
+exim_dc_eximconfig_configtype: internet
+# Other exim directives.
+exim_dc_localdelivery: mail_spool
+# Set a primary_hostname. If empty, the directive will be ignored.
+exim_primary_hostname: ""
+
+
+# --------  Role: mysql  --------
+mysql_port: 3306
+mysql_bind_address: "0.0.0.0"
+
+
+# --------  Role: oh-my-zsh  --------
+zsh_theme: aussiegeek
+ohmyzsh_user: root
+
+
+# --------  Role: php-tools  --------
+php_tools:
+  - phpunit
+
+
+# --------  Role: php5  --------
+# Package to install
+php5_packages:
+  - imagemagick
+  - php5
+  - php5-fpm
+  - php5-cli
+  - php5-common
+  - php5-curl
+  - php5-gd
+  - php5-imagick
+  - php5-mysql
+  - php5-xsl
+  - libapache2-mod-php5
+
+# Configuration
+php5_timezone:  Europe/Berlin
+php5_fpm_pools:
+  - name:       www
+    user:       www-data
+    group:      www-data
+    socket:     /var/run/php5-fpm.sock
+
+
+
+# --------  Role: systools  --------
+# Enter your prefered tools. 
+# If it works with 'apt install' it will work here too.
 systools:
   - vim
   - git
   - curl
   - zip
   - unzip
+  - mc

@@ -1,33 +1,15 @@
 ---
 # File: playbook.yml
-# Web Servers
+
 - hosts: webserver
   become: yes
   become_method: sudo
   roles:
-    - systools
-    - oh-my-zsh
-    - apache2
-    - php5
-    - php-tools
-    - mysql
-    - phpmyadmin
-    - ssmtp
     - ssh-conf
 
-- hosts: mail
+- hosts: mailserver
   become: yes
   become_method: sudo
   roles:
     - exim
     - dovecot
-    # - systools
-    # - oh-my-zsh
-    # - apache2
-    # - php5
-    # - composer
-    # - mysql
-    # - phpmyadmin
-    # - ssmtp
-    # - ssh-conf
-    # - InstILIAS

@@ -1,0 +1,5 @@
+---
+# File: roles/php5/handlers/main.yml
+
+- name:         apache2 restart
+  service:      name=apache2 state=restarted

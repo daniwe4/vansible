@@ -1,16 +1,22 @@
 ---
 # File: roles/ssh-conf/tasks/main.yml
 
-- name:     file | remove old sshd_config
+- name:               file | remove old sshd_config
   file:
-    path:   /etc/ssh/sshd_config
-    state:  absent
+    path:             /etc/ssh/sshd_config
+    state:            absent
 
-- name:     copy | copy new sshd_config
+- name:               copy | copy new sshd_config
   copy:
-    src:    roles/ssh-conf/templates/sshd_config.j2
-    dest:   /etc/ssh/sshd_config
-    owner:  root
-    group:  root
-    mode:   0644
-  notify:   ssh restart
+    src:              roles/ssh-conf/templates/sshd_config.j2
+    dest:             /etc/ssh/sshd_config
+    owner:            root
+    group:            root
+    mode:             0644
+  notify:             ssh restart
+
+- name:               user | set root password
+  user:
+    name:             root
+    password:         $6$rounds=656000$uDPwIs7VhJxM2ma1$bMR.0DKCRxbREJdLg3nG3cWrEdsq0EWhi2rTD9/N.COyNwuJZaFC6duch7Th/zAyLP6Bkuzv85adFZAM.wrFZ0
+    update_password:  always

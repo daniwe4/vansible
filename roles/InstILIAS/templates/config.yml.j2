@@ -20,7 +20,7 @@ language:
         - de
 
 server:
-    http_path: http://192.168.6.250/ILIAS
+    http_path: http://localhost/ILIAS
     absolute_path: /var/www/default/ILIAS
     timezone: Europe/Berlin
 
@@ -37,7 +37,7 @@ log:
     file_name: ilias.log
 
 git_branch:
-    url: https://github.com/ILIAS-eLearning/ILIAS.git
+    url: {{ilias_repo}}
     branch: {{ current_ilias_version }}
 
 https_auto_detect:

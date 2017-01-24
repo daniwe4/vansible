@@ -25,7 +25,9 @@ vars["groups"].each do |index, group|
 end
 
 # Only use one mail server per ip range
-nodes.push( { :hostname => 'mailer', :ip => '192.168.6.250' } )
+if vars["mailserver"] == "true"
+	nodes.push( { :hostname => 'mailer', :ip => '192.168.6.250' } )
+end
 
 Vagrant.configure("2") do |config|
 	# configurate VirtualBox
@@ -46,7 +48,6 @@ Vagrant.configure("2") do |config|
 
 	config.vm.provision :ansible do |ansible|
 		ansible.playbook = "playbook.yml"
-		ansible.limit = "all"
 		ansible.groups = server_groups
 	end
 end

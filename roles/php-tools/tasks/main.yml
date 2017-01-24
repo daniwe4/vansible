@@ -11,3 +11,8 @@
 
 - name:           git | clone dicto
   git:            repo=https://github.com/lechimp-p/dicto.php.git dest=/home/vagrant/share/dicto
+
+- name:           shell | composer install
+  shell:          composer install
+  args:
+    chdir:        /home/vagrant/share/dicto
