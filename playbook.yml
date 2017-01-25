@@ -5,6 +5,14 @@
   become: yes
   become_method: sudo
   roles:
+    - systools
+    - apache2
+    - php5
+    - php-tools
+    - mysql
+    - phpmyadmin
+    - oh-my-zsh
+    - ssmtp
     - ssh-conf
 
 - hosts: mailserver

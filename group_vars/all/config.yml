@@ -34,14 +34,14 @@ mailserver: false
 server_roles:
   - name: webserver
     roles:
-      # - systools
-      # - apache2
-      # - php5
-      # - php-tools
-      # - mysql
-      # - phpmyadmin
-      # - oh-my-zsh
-      # - ssmtp
+      - systools
+      - apache2
+      - php5
+      - php-tools
+      - mysql
+      - phpmyadmin
+      - oh-my-zsh
+      - ssmtp
       - ssh-conf
 
   - name: mailserver
