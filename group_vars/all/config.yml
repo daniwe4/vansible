@@ -25,15 +25,13 @@ user:
 # Begin the numeration with 2 .
 machines:
   #2: seepex
-  #3: generali
+  3: generali
   #4: medicproof
   #5: test
 
 # Please use only one mailserver per subnet
-# true installs the mailserver
+# true = install the mailserver
 mailserver: false
-
-############################# ATTENTION: Changes in this section requires to run the script "create_pl.py" #############################
 
 # Use this section to define which roles will be install for a group.
 server_roles:
@@ -49,11 +47,13 @@ server_roles:
       - ssmtp
       - ssh-conf
 
+# Edit this only if you know what you doing
   - name: mailserver
     roles:
       - exim
       - dovecot
 
+# Assign each defined machine to a server role
 groups:
   webserver:
     #- seepex
@@ -61,10 +61,9 @@ groups:
     #- medicproof
     #- test
 
+# Please use only one mailserver per subnet
   mailserver:
    #- mailer
-
-############################# ATTENTION: Changes in this section requires to run the script "create_pl.py" #############################
 
 
 
