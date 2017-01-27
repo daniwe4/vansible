@@ -9,6 +9,7 @@
 * [Ansible]
 * [VirtualBox]
 * [git]
+
 ### Installation
 ```
 $ cd DESTINATION_FOLDER
@@ -24,7 +25,7 @@ The first start has to be with root priviliges. It will create a symlink, so fro
 ```
 $ sudo ./vag.py up
 ```
-Dependent on how much machine and how much roles you defined in the config, this stepp can take a few minutes.
+Dependent on how much machines and how much roles you defined in the config, this stepp can take a few minutes.
 
 ### Following Starts
 Start or Install machines:
