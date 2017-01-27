@@ -5,6 +5,9 @@
 # Enter your password, wich will be used for all roles.
 master_pass: abcdef
 
+# First three octets of an ipv4 address
+ip_first_part: "192.168.6"
+
 # Select one of the initials from the user categorie.
 # e.g dw 
 name: dw
@@ -22,10 +25,12 @@ user:
 # Begin the numeration with 2 .
 machines:
   #2: seepex
-  3: generali
+  #3: generali
   #4: medicproof
   #5: test
 
+# Please use only one mailserver per subnet
+# true installs the mailserver
 mailserver: false
 
 ############################# ATTENTION: Changes in this section requires to run the script "create_pl.py" #############################
