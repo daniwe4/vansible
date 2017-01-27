@@ -3,7 +3,7 @@
 # Clone InstILIAS to /var/www/default
 
 - name:         git | get InstILIAS
-  git:          repo=https://github.com/conceptsandtraining/InstILIAS.git dest=/home/vagrant/InstILIAS version=release_5-1
+  git:          repo=https://github.com/shecken/InstILIAS.git dest=/home/vagrant/InstILIAS version=release_5-1
 
 - name:         shell | start composer
   shell:        composer install
@@ -19,3 +19,11 @@
   shell:        php src/bin/install.php src/config.yaml non_interactiv
   args:
     chdir:      /home/vagrant/InstILIAS
+
+- name:         file | change privilegs
+  file:
+    path:       /home/vagrant/share/data
+    state:      directory
+    owner:      www-data
+    group:      www-data
+    recurse:    yes
