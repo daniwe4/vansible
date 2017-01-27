@@ -18,7 +18,11 @@ vars["user"].each do |index, ip|
 		exit
 	end
 
-	ip_last_part[index] = "#{ip}"
+	if ip == 0
+		ip_last_part[index] = ""
+	else
+		ip_last_part[index] = "#{ip}"
+	end
 end
 
 vars["machines"].each do |index, machine|
@@ -31,9 +35,9 @@ vars["machines"].each do |index, machine|
 		index = index - 10
 		ip_last_part[NAME] = ip_last_part[NAME].to_i + 1
 	end
-	nodes.push( { :hostname => NAME + "_" + machine, :ip => ip_first_part + "." + ip_last_part[NAME].to_s + "#{index}"} )
+	nodes.push( { :hostname => machine, :ip => ip_first_part + "." + ip_last_part[NAME].to_s + "#{index}"} )
 end
-
+puts nodes
 vars["groups"].each do |index, group|
 	server_groups[index] = group
 end
@@ -44,20 +48,18 @@ if vars["mailserver"] == true
 end
 
 Vagrant.configure("2") do |config|
-
+	# configurate VirtualBox
+	config.vm.provider "virtualbox" do |vb|
+		vb.memory = 512
+	end
 
 	config.vm.box = "debian/jessie64"
 
 	# do for each virtual machine
 	nodes.each do |node|
-		# configurate VirtualBox
-		config.vm.provider "virtualbox" do |vb|
-			vb.memory = 512
-			vb.name = node[:hostname]
-		end
-		
 		config.vm.define node[:hostname] do |nodeconfig|
-			puts node[:ip]
+			#puts node[:ip]
+			#config.vm.name = NAME + "-" + node[:hostname]
 			nodeconfig.vm.hostname = node[:hostname]
 			nodeconfig.vm.network :private_network, ip: node[:ip]
 		end

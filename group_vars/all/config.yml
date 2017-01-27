@@ -10,7 +10,7 @@ ip_first_part: "192.168.6"
 
 # Select one of the initials from the user categorie.
 # e.g dw 
-name: nh
+name: dw
 
 # The number will be used to build a custom ip address.
 # It represents the first number of last octet of an ip-address
@@ -28,15 +28,15 @@ user:
 # e.g. 192.168.0{number} 
 # Begin the numeration with 2 .
 machines:
-  #2: seepex
-  3: generali
+  2: seepex
+  #3: generali
   #4: medicproof
-  5: test
-  6: daniel
+  #5: test
+  #6: daniel
 
 # Please use only one mailserver per subnet
 # true = install the mailserver
-mailserver: false
+mailserver: true
 
 # Use this section to define which roles will be install for a group.
 server_roles:
@@ -57,12 +57,12 @@ server_roles:
   - name: mailserver
     roles:
       - exim
-      - dovecot
+      - dovecot #auth ....
 
 # Assign each defined machine to a server role
 groups:
   webserver:
-    #- seepex
+    - seepex
     - generali
     #- medicproof
     - test
@@ -70,7 +70,7 @@ groups:
 
 # Please use only one mailserver per subnet
   mailserver:
-   #- mailer
+   - mailer
 
 
 
@@ -114,10 +114,6 @@ apache2_sites:
 # Disabled sites:
 apache2_sites_disabled: 
   - name: 000-default
-
-# --------  Role: catILIAS  --------
-# Enter your prefered tools. 
-# If it works with 'apt install' it will work here too.
 
 
 # --------  Role: exim  --------
