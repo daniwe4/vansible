@@ -9,6 +9,7 @@
 * [Ansible]
 * [VirtualBox]
 * [git]
+
 ### Installation
 ```
 $ cd DESTINATION_FOLDER
