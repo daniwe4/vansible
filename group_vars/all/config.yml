@@ -25,9 +25,9 @@ user:
 # Begin the numeration with 2 .
 machines:
   #2: seepex
-  3: generali
+  #3: generali
   #4: medicproof
-  #5: test
+  5: test
 
 # Please use only one mailserver per subnet
 # true = install the mailserver
@@ -46,6 +46,7 @@ server_roles:
       - oh-my-zsh
       - ssmtp
       - ssh-conf
+      - InstILIAS
 
 # Edit this only if you know what you doing
   - name: mailserver
@@ -57,9 +58,9 @@ server_roles:
 groups:
   webserver:
     #- seepex
-    - generali
+    #- generali
     #- medicproof
-    #- test
+    - test
 
 # Please use only one mailserver per subnet
   mailserver:

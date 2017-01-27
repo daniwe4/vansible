@@ -1,4 +1,3 @@
 *.*
-playbook*
-.vagrant
+playbook.*
 !.gitignore
