@@ -1,9 +1,0 @@
----
-# File: playbook.yml
-
-- hosts: mailserver
-  become: yes
-  become_method: sudo
-  roles:
-    - exim
-    - dovecot

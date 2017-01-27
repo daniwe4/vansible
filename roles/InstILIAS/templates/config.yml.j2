@@ -1,6 +1,6 @@
 ---
 client:
-    data_dir: /home/vagrant/data
+    data_dir: /home/vagrant/share/data
     name: ILIAS
     password_encoder: bcrypt
     session_expire: 120
@@ -20,8 +20,8 @@ language:
         - de
 
 server:
-    http_path: http://localhost/ILIAS
-    absolute_path: /var/www/default/ILIAS
+    http_path: http://{{ansible_eth1.ipv4.address}}/ILIAS
+    absolute_path: /home/vagrant/share/repo/ILIAS
     timezone: Europe/Berlin
 
 setup:
@@ -33,7 +33,7 @@ tools:
     unzip: usr/bin/unzip
     java: usr/bin/java
 log:
-    path: /home/vagrant/data
+    path: /home/vagrant/share/data
     file_name: ilias.log
 
 git_branch:

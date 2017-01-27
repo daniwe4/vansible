@@ -27,44 +27,44 @@ machines:
   #2: seepex
   #3: generali
   #4: medicproof
-  #5: test
+  5: test
 
 # Please use only one mailserver per subnet
-# true installs the mailserver
+# true = install the mailserver
 mailserver: false
-
-############################# ATTENTION: Changes in this section requires to run the script "create_pl.py" #############################
 
 # Use this section to define which roles will be install for a group.
 server_roles:
   - name: webserver
     roles:
-      # - systools
-      # - apache2
-      # - php5
-      # - php-tools
-      # - mysql
-      # - phpmyadmin
-      # - oh-my-zsh
-      # - ssmtp
-      # - ssh-conf
+      - systools
+      - apache2
+      - php5
+      - php-tools
+      - mysql
+      - phpmyadmin
+      - oh-my-zsh
+      - ssmtp
+      - ssh-conf
+      - InstILIAS
 
+# Edit this only if you know what you doing
   - name: mailserver
     roles:
       - exim
       - dovecot
 
+# Assign each defined machine to a server role
 groups:
   webserver:
     #- seepex
-    - generali
+    #- generali
     #- medicproof
-    #- test
+    - test
 
+# Please use only one mailserver per subnet
   mailserver:
    #- mailer
-
-############################# ATTENTION: Changes in this section requires to run the script "create_pl.py" #############################
 
 
 

@@ -5,9 +5,9 @@ import yaml
 import sys
 import os
 
-if not os.path.isfile("/usr/bin/vag"):
+if not os.path.isfile("/usr/local/bin/vag"):
 	src 	= os.getcwd() + "/vag.py"
-	dst 	= "/usr/bin/vag"
+	dst 	= "/usr/local/bin/vag"
 	os.symlink(src, dst)
 	print "Add syslink for {} in {}".format(src, dst)
 

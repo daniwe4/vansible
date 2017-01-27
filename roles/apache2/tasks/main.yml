@@ -50,3 +50,12 @@
   notify:         apache2 restart
   when:           "{{apache2_sites_disabled}}"
 
+- name:           file | ensure that /home/vagrant/share/repo exists
+  file:
+    path:         /home/vagrant/share/repo
+    state:        directory
+    mode:         0755
+
+- name:         file | symlink to repo
+  file:         path=/var/www/default/repo src=/home/vagrant/share/repo state=link
+

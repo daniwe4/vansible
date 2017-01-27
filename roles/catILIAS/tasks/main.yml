@@ -1,6 +1,0 @@
----
-# File: roles/InstILIAS/tasks/main.yml
-# Clone InstILIAS to /var/www/default
-
-- name: git | get catILIAS
-  git:  repo=git://github.com/conceptsandtraining/ILIAS.git dest=/home/vagrant/share/repos/ILIAS

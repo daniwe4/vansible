@@ -1,0 +1,5 @@
+.*
+/playbook.yml
+/playbook.retry
+!.gitignore
+!README.md
