@@ -27,15 +27,19 @@ stream.write("---\n")
 stream.write("# File: playbook.yml\n")
 
 for server_role in server_roles:
-	stream.write("\n- hosts: {}\n".format(server_role['name']))
-	stream.write("  become: yes\n")
-	stream.write("  become_method: sudo\n")
-	stream.write("  roles:\n")
+	if server_role['roles']:
+		stream.write("\n- hosts: {}\n".format(server_role['name']))
+		stream.write("  become: yes\n")
+		stream.write("  become_method: sudo\n")
+		stream.write("  roles:\n")
 
-	for role in server_role['roles']:
-		stream.write("    - {}\n".format(role))
+		for role in server_role['roles']:
+			stream.write("    - {}\n".format(role))
+	else:
+		print("No roles selected for host " + server_role['name'])
 
 stream.close()
+
 
 # call vagrant with command args
 os.system(cmd)

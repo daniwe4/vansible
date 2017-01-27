@@ -25,7 +25,7 @@ user:
 # Begin the numeration with 2 .
 machines:
   #2: seepex
-  3: generali
+  #3: generali
   #4: medicproof
   #5: test
 
@@ -39,15 +39,15 @@ mailserver: false
 server_roles:
   - name: webserver
     roles:
-      - systools
-      - apache2
-      - php5
-      - php-tools
-      - mysql
-      - phpmyadmin
-      - oh-my-zsh
-      - ssmtp
-      - ssh-conf
+      # - systools
+      # - apache2
+      # - php5
+      # - php-tools
+      # - mysql
+      # - phpmyadmin
+      # - oh-my-zsh
+      # - ssmtp
+      # - ssh-conf
 
   - name: mailserver
     roles:
