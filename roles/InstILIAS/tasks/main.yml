@@ -3,7 +3,7 @@
 # Clone InstILIAS to /var/www/default
 
 - name:         git | get InstILIAS
-  git:          repo=https://github.com/shecken/InstILIAS.git dest=/home/vagrant/InstILIAS version=release_5-1
+  git:          repo=https://github.com/shecken/InstILIAS.git dest=/home/vagrant/InstILIAS version={{current_ilias_version}}
 
 - name:         shell | start composer
   shell:        composer install
