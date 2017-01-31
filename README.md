@@ -18,7 +18,7 @@ $ cd Vansible
 ```
 ### Configuration
 All configuration tasks can be done in one file. Open the file "goup_vars/all/config.yml".
-Each section is well commentet. Fell free to update each section for your own needs.
+Each section is well commentet. Feel free to update each section for your own needs.
 
 ### First Start
 The first start has to be with root priviliges. It will create a symlink, so from now on you only need the command "vag".
@@ -27,7 +27,7 @@ $ sudo ./vag.py up
 ```
 Dependent on how much machines and how much roles you defined in the config, this stepp can take a few minutes.
 
-### Following Starts
+### Next Starts
 Start or Install machines:
 ```
 $ vag up [machinename]

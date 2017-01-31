@@ -6,7 +6,7 @@
 master_pass: abcdef
 
 # First three octets of an ipv4 address
-ip_first_part: "192.168.6"
+ip_first_part: "192.168.2"
 
 # Select one of the initials from the user categorie.
 # e.g dw 
@@ -25,11 +25,11 @@ user:
 
 # Define how many machines vagrant should install and their name.
 # It is also used for the last number in the last octet of an ip-address
-# e.g. 192.168.0{number} 
+# e.g. 192.168.1.4{number} 
 # Begin the numeration with 2 .
 machines:
   2: seepex
-  #3: generali
+  3: generali
   #4: medicproof
   #5: test
   #6: daniel
@@ -58,6 +58,8 @@ server_roles:
     roles:
       - exim
       - dovecot #auth ....
+      - systools
+      - oh-my-zsh
 
 # Assign each defined machine to a server role
 groups:
@@ -65,8 +67,8 @@ groups:
     - seepex
     - generali
     #- medicproof
-    - test
-    - daniel
+    #- test
+    #- daniel
 
 # Please use only one mailserver per subnet
   mailserver:

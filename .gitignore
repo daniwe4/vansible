@@ -1,5 +1,6 @@
 .*
 /playbook.yml
 /playbook.retry
+/ansible*
 !.gitignore
 !README.md
