@@ -10,10 +10,12 @@ if not os.path.isfile("/usr/local/bin/vag"):
 	dst 	= "/usr/local/bin/vag"
 	os.symlink(src, dst)
 	print "Add syslink for {} in {}".format(src, dst)
+	sys.exit()
 
-# get command args without the first (program name)
-args 	= sys.argv[1:]
-cmd 	= "vagrant " +  " ".join(args)
+if os.geteuid() == 0:
+	print "Please run this script only the first time as root!"
+	sys.exit()
+
 
 # generate a dynamic playbook file
 with open("group_vars/all/config.yml", "r") as stream:
@@ -41,5 +43,8 @@ for server_role in server_roles:
 stream.close()
 
 
+# get command args without the first (program name)
+args 	= sys.argv[1:]
+cmd 	= "vagrant " +  " ".join(args)
 # call vagrant with command args
 os.system(cmd)

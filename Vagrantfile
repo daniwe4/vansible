@@ -1,8 +1,7 @@
 # -*- mode: ruby -*-
 # vim: ft=ruby
-
-# ---- Configuration Part -----
 require 'yaml'
+
 
 ip_last_part 	= {}
 server_groups 	= {}
@@ -35,11 +34,22 @@ vars["machines"].each do |index, machine|
 		index = index - 10
 		ip_last_part[NAME] = ip_last_part[NAME].to_i + 1
 	end
+	machine = NAME + "-" + machine
 	nodes.push( { :hostname => machine, :ip => ip_first_part + "." + ip_last_part[NAME].to_s + "#{index}"} )
 end
-puts nodes
+
 vars["groups"].each do |index, group|
-	server_groups[index] = group
+	if vars["groups"][index] != nil
+		arr = Array.new()
+		vars["groups"][index].each do |g|
+			if g == "mailer"
+				arr.push(g)
+			else
+				arr.push(NAME + "-" + g)
+			end
+		end
+		server_groups[index] = arr
+	end
 end
 
 # Only use one mail server per subnet
@@ -48,20 +58,18 @@ if vars["mailserver"] == true
 end
 
 Vagrant.configure("2") do |config|
-	# configurate VirtualBox
-	config.vm.provider "virtualbox" do |vb|
-		vb.memory = 512
-	end
-
 	config.vm.box = "debian/jessie64"
 
 	# do for each virtual machine
 	nodes.each do |node|
 		config.vm.define node[:hostname] do |nodeconfig|
-			#puts node[:ip]
-			#config.vm.name = NAME + "-" + node[:hostname]
+			puts node[:ip]
 			nodeconfig.vm.hostname = node[:hostname]
-			nodeconfig.vm.network :private_network, ip: node[:ip]
+			nodeconfig.vm.network :public_network, ip: node[:ip]
+			nodeconfig.vm.provider "virtualbox" do |vb|
+				vb.memory = 512
+				vb.name = node[:hostname]
+			end
 		end
 	end
 
