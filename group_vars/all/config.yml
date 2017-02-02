@@ -7,7 +7,7 @@ master_pass: abcdef
 
 # First three octets of an ipv4 address
 # e.g. "192.168.4"
-ip_first_part: "192.168.2"
+ip_first_part: "192.168.6"
 
 # Select one of the initials from the user categorie.
 # e.g dw 
@@ -29,8 +29,8 @@ user:
 # e.g. 192.168.1.4{number} 
 # Begin the numeration with 2 .
 machines:
-  2: seepex
-  3: generali
+  #2: seepex
+  #3: generali
   #4: medicproof
 
 # Please use only one mailserver per subnet

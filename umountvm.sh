@@ -1,3 +1,3 @@
 #!/bin/bash
 
-fusermount -u $HOME/mount/$1
+umount -f $HOME/mount/$1
