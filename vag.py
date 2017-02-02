@@ -49,5 +49,3 @@ cmd 	= "vagrant " +  " ".join(args)
 # call vagrant with command args
 os.system(cmd)
 
-test = os.popen(vagrant ssh $1 -c "ip address show eth1" 2>/dev/null | sed -ne '/inet / s/\s\+inet \([^\/]\+\).*\r/\1/p')#
-print test

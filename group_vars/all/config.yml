@@ -29,13 +29,13 @@ user:
 # e.g. 192.168.1.4{number} 
 # Begin the numeration with 2 .
 machines:
-  #2: seepex
+  2: seepex
   #3: generali
   #4: medicproof
 
 # Please use only one mailserver per subnet
 # true = install the mailserver
-mailserver: true
+mailserver: false
 
 # Use this section to define which roles will be install for a group.
 server_roles:
