@@ -11,6 +11,7 @@
 * [Ansible]
 * [VirtualBox]
 * [git]
+* [python2.7]
 
 ### Installation
 ```
@@ -63,3 +64,4 @@ $ sshfs root@<vm_ip_address>:/home/ <mount_dir_on_host>
    [Ansible]: <https://www.ansible.com/>
    [VirtualBox]: <https://www.virtualbox.org/>
    [git]: <https://git-scm.com/>
+   [python2.7]: <https://www.python.org/downloads/release/python-2713/>
