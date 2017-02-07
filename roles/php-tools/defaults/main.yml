@@ -1,2 +1,5 @@
 ---
 # File: roles/php-tools/default/main.yml
+# --------  Role: php-tools  --------
+php_tools:
+  - phpunit

@@ -1,1 +1,4 @@
 # File: roles/oh-my-zsh/defaults/main.yml
+# --------  Role: oh-my-zsh  --------
+zsh_theme: aussiegeek
+ohmyzsh_user: root

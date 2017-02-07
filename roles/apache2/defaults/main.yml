@@ -1,2 +1,32 @@
 ---
 # File: roles/apache2/defaults/main.yml
+
+# Enter your prefered tools. 
+apache2_packages:
+  - apache2
+  - apache2-mpm-worker
+  # - libapache2-mod-fastcgi
+
+# Default modules
+apache2_modules:
+  - rewrite
+  - vhost_alias
+  - headers
+  - expires
+  - filter
+  - actions
+  - suexec
+  #  - fastcgi
+
+# Default vhosts
+apache2_sites:
+  - name:         default
+    owner:        www-data
+    servername:   localhost
+    doc_root:     /var/www/default
+    php:          true
+    php_socket:   /var/run/php5-fpm.sock
+
+# Disabled sites:
+apache2_sites_disabled: 
+  - name: 000-default
