@@ -24,15 +24,21 @@ user:
   dk: 6
   nh: 8
 
-# Define how many machines vagrant should install and their name.
+# Define the machines vagrant should install and their name.
 # It is also used for the last number in the last octet of an ip-address
 # e.g. 192.168.1.4{number} 
 # Begin the numeration with 2 .
+# Define here which server roles each machine is in
 machines:
-  #2: seepex
-  #3: generali
-  #4: medicproof
-  5: test
+  - name: seepex
+    ip: 2
+    groups:
+      - webserver
+
+  # - name: generali
+  #   ip: 3
+  #   groups:
+  #     - webserver
 
 # Please use only one mailserver per subnet
 # true = install the mailserver
@@ -60,19 +66,6 @@ server_roles:
       - dovecot #auth ....
       - systools
       - oh-my-zsh
-
-# Assign each defined machine to a server role
-groups:
-  webserver:
-    #- seepex
-    #- generali
-    #- medicproof
-    - test
-    #- daniel
-
-# Please use only one mailserver per subnet
-  mailserver:
-   - mailer
 
 # -------------------- Use the following to edit each role seperatly -------------------------------
 
