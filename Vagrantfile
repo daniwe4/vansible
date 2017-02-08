@@ -4,7 +4,7 @@ require 'yaml'
 
 
 ip_last_part 	= {}
-server_groups 	= {}
+server_groups 	= Hash.new { |hash, key| hash[key] = [] }
 nodes 			= Array.new() { Array.new() }
 vars 			= YAML.load_file('group_vars/all/config.yml')
 ip_first_part 	= vars['ip_first_part']
@@ -24,31 +24,23 @@ vars["user"].each do |index, ip|
 	end
 end
 
-vars["machines"].each do |index, machine|
-	if index < 2 || index >= 20
+vars["machines"].each do |index|
+	if index['ip'] < 2 || index['ip'] >= 20
 		puts "ERROR: Index for your machines are out of range. The allowed range is from 2 to inclusive 19."
 		exit
 	end
 
-	if index >= 10 && index < 20
-		index = index - 10
+	if index['ip'] >= 10 && index['ip'] < 20
+		index['ip'] = index['ip'] - 10
 		ip_last_part[NAME] = ip_last_part[NAME].to_i + 1
 	end
-	machine = NAME + "-" + machine
-	nodes.push( { :hostname => machine, :ip => ip_first_part + "." + ip_last_part[NAME].to_s + "#{index}"} )
-end
+	machine = NAME + "-" + index['name']
+	nodes.push( { :hostname => machine, :ip => ip_first_part + "." + ip_last_part[NAME].to_s + "#{index['ip']}"} )
 
-vars["groups"].each do |index, group|
-	if vars["groups"][index] != nil
-		arr = Array.new()
-		vars["groups"][index].each do |g|
-			if g == "mailer"
-				arr.push(g)
-			else
-				arr.push(NAME + "-" + g)
-			end
+	unless index['groups'].nil?
+		index['groups'].each do |g|
+			server_groups[g].push machine
 		end
-		server_groups[index] = arr
 	end
 end
 

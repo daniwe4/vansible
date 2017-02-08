@@ -48,3 +48,4 @@ args 	= sys.argv[1:]
 cmd 	= "vagrant " +  " ".join(args)
 # call vagrant with command args
 os.system(cmd)
+
