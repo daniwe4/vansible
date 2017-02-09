@@ -2,5 +2,6 @@
 /playbook.yml
 /playbook.retry
 /ansible*
+/ip.txt
 !.gitignore
 !README.md
