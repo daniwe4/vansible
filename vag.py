@@ -17,7 +17,9 @@ def getMachineDict():
 	return machine_dict
 
 def getMachineNames():
-	"""getMachineNames()"""
+	"""
+	get a list of names from the created machines
+	"""
 	names = []
 	for key in getMachineDict():
 		names.append(key)
@@ -60,7 +62,6 @@ def mountMachines(machines):
 		os.system(cmd)
 		print "%s Mount %s to %s/mount/%s" % (out, machine, home_path, machine)
 
-
 def umountMachines(machines):
 	"""umountMachines(machines)"""
 	machines = machines.split()
@@ -87,8 +88,8 @@ def usage():
 	"""usage()"""
 	print "Usage: vag <vagrant_command> [[<machine_name>] ...]"
 
-def provideCommands(vag_command, opt_commands):
-	"""provideCommands(vag_command, opt_commands)"""
+def handleCommands(vag_command, opt_commands):
+	"""handleCommands(vag_command, opt_commands)"""
 	if (opt_commands != None) and (len(opt_commands) > 0):
 		machines = ' '.join(opt_commands)
 	else:
@@ -149,7 +150,7 @@ for server_role in server_roles:
 		print("No roles selected for host " + server_role['name'])
 
 stream.close()
-provideCommands(getVagrantCommand(sys.argv), getOptionalCommands(sys.argv))
+handleCommands(getVagrantCommand(sys.argv), getOptionalCommands(sys.argv))
 
 
 
