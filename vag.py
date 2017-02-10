@@ -151,11 +151,3 @@ for server_role in server_roles:
 
 stream.close()
 handleCommands(getVagrantCommand(sys.argv), getOptionalCommands(sys.argv))
-
-
-
-
-
-
-
-
