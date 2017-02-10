@@ -41,14 +41,14 @@ machines:
     groups:
       - webserver
 
-  # - name: seepex
-  #   ip: 4
-  #   groups:
-  #     - webserver
+  - name: seepex
+    ip: 4
+    groups:
+      - webserver
       
 # Please use only one mailserver per subnet
 # true = install the mailserver
-mailserver: true
+mailserver: false
 
 # Use this section to define which roles will be install for a group.
 server_roles:
