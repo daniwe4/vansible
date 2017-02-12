@@ -51,7 +51,8 @@ end
 
 Vagrant.configure("2") do |config|
 	config.vm.box = "debian/jessie64"
-
+	config.vm.synced_folder ".", "/vagrant", disabled: true
+	
 	# do for each virtual machine
 	nodes.each do |node|
 		config.vm.define node[:hostname] do |nodeconfig|
