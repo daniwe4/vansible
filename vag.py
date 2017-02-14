@@ -4,6 +4,9 @@
 import yaml
 import sys
 import os
+from passlib.hash import sha512_crypt
+import getpass
+
 home_path = os.getenv("HOME")
 out = "***VAG-->"
 
@@ -115,6 +118,9 @@ def handleCommands(vag_command, opt_commands):
 	else:
 		usage()
 
+def hashPasswd(pwd):
+	return sha512_crypt.encrypt(pwd)
+
 def loadYaml(filename):
 	# generate a dynamic playbook file
 	with open(filename, "r") as stream:
@@ -142,6 +148,12 @@ def generatePlaybook():
 			print("No roles selected for host %s" % (server_role['name']))
 	stream.close()
 
+def generateSSHConf(pwd):
+	stream = open("roles/ssh-conf/defaults/main.yml", "w")
+	stream.write("---\n")
+	stream.write("hash: %s" % (pwd))
+	stream.close()
+
 if not os.path.isfile("/usr/local/bin/vag"):
 	src 	= os.getcwd() + "/vag.py"
 	dst 	= "/usr/local/bin/vag"
@@ -157,4 +169,5 @@ config = loadYaml("group_vars/all/config.yml")
 server_roles = config['server_roles']
 password = config['master_pass']
 generatePlaybook()
+generateSSHConf(hashPasswd(password))
 handleCommands(getVagrantCommand(sys.argv), getOptionalCommands(sys.argv))

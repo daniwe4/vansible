@@ -3,5 +3,6 @@
 /playbook.retry
 /ansible*
 /ip.txt
+/roles/ssh-conf/defaults/main.yml
 !.gitignore
 !README.md
