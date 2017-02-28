@@ -3,5 +3,6 @@
 /playbook.retry
 /ansible*
 /ip.txt
+/group_vars/all/
 !.gitignore
 !README.md
