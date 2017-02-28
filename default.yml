@@ -30,32 +30,23 @@ user:
 # Begin the numeration with 2 .
 # Define here which server roles each machine is in
 machines:
-  # - name: seepex
-  #   ip: 2
-  #   groups:
-  #     - webserver
-  #     - ilias
+  - name: test_1
+    ip: 2
+    groups:
+      - webserver
+      - ilias
 
-  - name: generali
+  - name: test_2
     ip: 3
     groups:
-      - webserver
+      -webserver
 
-  - name: seepex
-    ip: 4
-    groups:
-      - webserver
-      
+
 # Please use only one mailserver per subnet
 # true = install the mailserver
 mailserver: false
 
 # Use this section to define which roles will be install for a group.
-server_roles:
-  - name: ilias
-    roles:
-      - InstILIAS
-
 server_roles:
   - name: webserver
     roles:
@@ -69,6 +60,9 @@ server_roles:
       - ssmtp
       - ssh-conf
 
+  - name: ilias
+    roles:
+      - InstILIAS
 
 # Edit this only if you know what you doing
   - name: mailserver
