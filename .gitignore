@@ -4,5 +4,6 @@
 /ansible*
 /ip.txt
 /roles/ssh-conf/defaults/main.yml
+/group_vars/all/
 !.gitignore
 !README.md
