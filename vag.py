@@ -4,7 +4,7 @@
 import yaml
 import sys
 import os
-from passlib.hash import sha512_crypt
+import hashlib
 import getpass
 
 home_path = os.getenv("HOME")
@@ -119,7 +119,7 @@ def handleCommands(vag_command, opt_commands):
 		usage()
 
 def hashPasswd(pwd):
-	return sha512_crypt.encrypt(pwd)
+	return hashlib.sha512(pwd).hexdigest()
 
 def loadYaml(filename):
 	# generate a dynamic playbook file
