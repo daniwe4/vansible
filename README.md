@@ -2,7 +2,7 @@
 # VANSIBLE
 **The aim of this project is to provide developers with a fast and uncomplicated development environment.**
 **For this, Vagrant and Ansible will be used in combination to provide various virtual machines with different software.**
-**The developers should be able to do all their settings in a central configuration file.**
+**Developers should be able to do all their settings in a central configuration file.**
 
 ## Usage
 ### Software Requirements
@@ -13,6 +13,7 @@
 * [git]
 * [python2.7]
 * [pyaml]
+* [sshfs]
 
 ### Installation
 ```
@@ -31,15 +32,18 @@ $ sudo ./vag.py
 ```
 
 ### Next Starts
+For all following commands sudo is unnecessary.
+If there is only one vm managed by vansible you don´t have to specify the machine name.
+
 Start or Install machines:
 ```
 $ vag up <your_machinename>
 ```
 Stop machines:
 ````
-$ vag stop <your_machinename>
+$ vag halt <your_machinename>
 ````
-Update machines:
+Update machines after editing ansible files:
 ````
 $ vag provision <your_machinename>
 ````
@@ -67,3 +71,4 @@ $ sshfs root@<vm_ip_address>:/home/ <mount_dir_on_host>
    [git]: <https://git-scm.com/>
    [python2.7]: <https://www.python.org/downloads/release/python-2713/>
    [pyaml]: <https://pypi.python.org/pypi/pyaml#installation>
+   [sshfs]: <https://osxfuse.github.io/>
