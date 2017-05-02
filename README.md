@@ -2,7 +2,7 @@
 # VANSIBLE
 **The aim of this project is to provide developers with a fast and uncomplicated development environment.**
 **For this, Vagrant and Ansible will be used in combination to provide various virtual machines with different software.**
-**The developers should be able to do all their settings in a central configuration file.**
+**Developers should be able to do all their settings in a central configuration file.**
 
 ## Usage
 ### Software Requirements
@@ -32,15 +32,18 @@ $ sudo ./vag.py
 ```
 
 ### Next Starts
+For all following commands sudo is unnecessary.
+If there is only one vm managed by vansible you don´t have to specify the machine name.
+
 Start or Install machines:
 ```
 $ vag up <your_machinename>
 ```
 Stop machines:
 ````
-$ vag stop <your_machinename>
+$ vag halt <your_machinename>
 ````
-Update machines:
+Update machines after editing ansible files:
 ````
 $ vag provision <your_machinename>
 ````
