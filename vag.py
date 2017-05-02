@@ -75,7 +75,7 @@ def umountMachines(machines):
 	for machine in machines:
 		if "mailer" == machine:
 			continue
-		cmd = "umount -f %s/mount/%s" % (home_path, machine)
+		cmd = "umount %s/mount/%s" % (home_path, machine)
 		os.system(cmd)
 		print "%s Unmount %s from %s/mount/%s" % (out, machine, home_path, machine)
 		cmd = "rm -rf %s/mount/%s" % (home_path, machine)
@@ -105,13 +105,13 @@ def handleCommands(vag_command, opt_commands):
 	if vag_command != None:
 		if "up" in vag_command:
 			callVagrant("up", machines)
-			mountMachines(machines)
+			#mountMachines(machines)
 		elif "halt" in vag_command:
+			#umountMachines(machines)
 			callVagrant("halt", machines)
-			umountMachines(machines)
 		elif "destroy" in vag_command:
+			#umountMachines(machines)
 			callVagrant("destroy", machines)
-			umountMachines(machines)
 		elif "ssh" in vag_command:
 			callVagrant("ssh", machines)
 		elif "provision" in vag_command:
@@ -147,6 +147,9 @@ def generatePlaybook():
 		else:
 			print("No roles selected for host %s" % (server_role['name']))
 	stream.close()
+
+if not os.path.isfile(os.getcwd() + "/ip.txt"):
+	file = open("ip.txt", "w")
 
 if not os.path.isfile("/usr/local/bin/vag"):
 	src 	= os.getcwd() + "/vag.py"
