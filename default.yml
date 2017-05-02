@@ -30,17 +30,11 @@ user:
 # Begin the numeration with 2 .
 # Define here which server roles each machine is in
 machines:
-  - name: test_1
-    ip: 2
+  - name: testInstILIAS
+    ip: 6
     groups:
       - webserver
       - ilias
-
-  - name: test_2
-    ip: 3
-    groups:
-      -webserver
-
 
 # Please use only one mailserver per subnet
 # true = install the mailserver
@@ -76,8 +70,9 @@ server_roles:
 
 # --------  Role: InstILIAS  --------
 # Branch to checkout
-# Current available branches: master, release_5-1, trunk
-current_ilias_version: release_5-1
+# Current available branches: master, release_5-1, release_5-2, trunk
+current_ilias_version: release_5-2
+InstILIAS_version: release_5-2
 ilias_repo: https://github.com/ILIAS-eLearning/ILIAS.git
 
 # --------  Role: systools  --------

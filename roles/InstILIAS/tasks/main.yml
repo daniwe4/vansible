@@ -2,8 +2,20 @@
 # File: roles/InstILIAS/tasks/main.yml
 # Clone InstILIAS to /var/www/default
 
+- name:         copy id_rsa
+  copy:
+    src:        /Users/dw/id_rsa
+    dest:       /home/vagrant/.ssh/
+    owner:      "vagrant"
+
 - name:         git | get InstILIAS
-  git:          repo=https://github.com/shecken/InstILIAS.git dest=/home/vagrant/InstILIAS version={{current_ilias_version}}
+  git:          repo=git@github.com:daniwe4/ilias-tool-InstILIAS.git
+                dest=/home/vagrant/InstILIAS
+                version={{InstILIAS_version}}
+                accept_hostkey=yes
+                force=yes
+                recursive=no
+                key_file=/home/vagrant/.ssh/id_rsa
 
 - name:         shell | start composer
   shell:        composer install
@@ -22,7 +34,7 @@
 
 - name:         file | change privilegs
   file:
-    path:       /home/vagrant/share/data
+    path:       /home/vagrant/share/repo/data
     state:      directory
     owner:      www-data
     group:      www-data

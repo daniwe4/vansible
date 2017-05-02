@@ -1,6 +1,6 @@
 ---
 client:
-    data_dir: /home/vagrant/share/data
+    data_dir: /home/vagrant/share/repo/data
     name: ILIAS
     password_encoder: bcrypt
     session_expire: 120
@@ -12,9 +12,9 @@ database:
     password: {{ master_pass }}
     engine: innodb
     encoding: utf8_general_ci
-
+    create_db: 1
 language:
-    default: en
+    default: de
     available:
         - en
         - de
@@ -33,7 +33,7 @@ tools:
     unzip: usr/bin/unzip
     java: usr/bin/java
 log:
-    path: /home/vagrant/share/data
+    path: /home/vagrant/share/repo/data/
     file_name: ilias.log
 
 git_branch:
@@ -78,3 +78,133 @@ editor:
         footnote: 1
         external_link: 1
 
+
+#Enable user self registration or add some for initial create after ilias installation
+user:
+    #User can registrate themself. Decide which mode will be used. 1 (inactive) or 4 (registration with email confirmation)
+    registration: 1
+    #Lifetime of the registration link. Value is required in seconds
+    link_lifetime: 86400
+    #Define which of these fields are required in user profil. Not listed field names will be set as not required.
+    #If required_fields is an empty array, all fields will be not requred
+    required_fields:
+        - title
+        - birthday
+        - gender
+        - institution
+        - department
+        - street
+        - zipcode
+        - city
+        - country
+        - phone_office
+        - phone_home
+        - phone_mobile
+        - fax
+        - email
+        - matriculation
+#    users:
+#        0:
+#            login:
+#            firstname:
+#            lastname:
+            #It is possible to decide between "m" and "w"
+#            gender:
+#            email:
+            #Each user must have assigned to a global role. Basic roles are "User" or "Administration"
+            #Also it is possible to assign roles created by own in roles part of this installation
+#            role: User
+
+#With this part you are able to configure the passwors settings like number of upper or lower chars, user special chars and so on
+password_settings:
+    #If activated the user is forced to change his passwort after first login. You can toggle with 1 (active) or 0 (inactive)
+    change_on_first_login: 0
+    #At least one special char is required in password. You can toggle with 1 (active) or 0 (inactive)
+    use_special_chars: 0
+    #Numbers and chars are required in password. You can toggle with 1 (active) or 0 (inactive)
+    numbers_and_chars: 0
+    #Minimum length for the password.
+    min_length: 1
+    #Maximum length for the password. If set to 0 the lenght is open end.
+    max_length: 0
+    #Number of required upper chars
+    num_upper_chars: 0
+    #Number of requires lower chars
+    num_lower_chars: 0
+    #Value in days the password will be expired
+    expire_in_days: 0
+    #If active the you can see the link "Forgot Password". You can toggle with 1 (active) or 0 (inactive)
+    forgot_password_aktive: 0
+    #Max Number of login attemps, before account get blocked. if you enter 0 user account never will be blocked
+    max_num_login_attempts: 0
+#Configurate youre changings for the editor administratio part. It's possible to toggle usage of tinyMCE and configure
+#repository page edit settings
+editor:
+    #Active the TyniMCE editor. You can toggle with 1 (active) or 0 (inactive)
+    enable_tinymce: 1
+    #Settings for the repository page editor. You can toggle each part with 1 (active) or 0 (inactive)
+    repo_page_editor:
+        enable: 0
+        heavy_marked: 1
+        marked: 1
+        importand: 1
+        superscript: 1
+        subscript: 1
+        comment: 1
+        quote: 1
+        accent: 1
+        code: 1
+        latex: 1
+        footnote: 1
+        external_link: 1
+#Configure the java server. if configured ilias is able to generate pdf files and an extended search mode is activated
+java_server:
+    #host of running java server
+    host: 'localhost'
+    #port the java server is listening
+    port: 11111
+    #path for saving index files
+    index_path: '/home/vagrant/share/repo/java/ilServer.index'
+    #path and name of logfile. could be the same path as ilias log
+    log_file: '/home/vagrant/share/repo/java/ilserver.log'
+    #log lever. possible DEBUG, INFO, WARN, ERROR, FATAL
+    log_level: 'INFO'
+    #number of threads
+    num_threads: 1
+    #max size of files to get indexed. Value is given in MB
+    max_file_size: 500
+    #Path to create ilServer.ini
+    ini_path: ''
+#Configure the ilias certificate generator. You can toggle with 1 (active) or 0 (inactive)
+certificate:
+    enable: 1
+#ILIAS is working with SOAP. In this line it is possible to configure
+soap:
+    #Toggle SOAP is active or not. 1 (active) or 0 (inactive)
+    enable: 1
+    #Path to WSDL Files
+    wdsl_path: http://localhost/webservice/soap/server.php?wsdl
+    #Conenction timeout in seconds
+    timeout: 10
+#Active and configure the learning progress
+learning_progress:
+    #Just active or not (0, 1)
+    enabled: 1
+    #Should the user data in LP tabs be anonymized or not (0, 1)
+    anonym: 1
+    #Maximum time of LP calls
+    time_span: 300
+    #Enable additional inforamtions. Add the values of extension you like to use.
+    #0 => no extended values
+    #1 => last access
+    #2 => count accesses
+    #4 => spendet time
+    extended_data: 0
+    #Enable object statistics (0, 1)
+    object_statistics: 0
+    #Enable session statistics (0, 1)
+    session_statistics: 1
+    #User have a look on his own LP (0, 1)
+    own_lp: 1
+    #Show the LP state in list GUI elements
+    personal_desktop: 0

@@ -50,9 +50,9 @@
   notify:         apache2 restart
   when:           "{{apache2_sites_disabled}}"
 
-- name:           file | ensure that /home/vagrant/share/repo exists
+- name:           file | ensure that /home/vagrant/share/repo/ILIAS exists
   file:
-    path:         /home/vagrant/share/repo
+    path:         /home/vagrant/share/repo/ILIAS
     state:        directory
     mode:         0755
 
