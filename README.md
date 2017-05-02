@@ -13,6 +13,7 @@
 * [git]
 * [python2.7]
 * [pyaml]
+* [sshfs]
 
 ### Installation
 ```
@@ -67,3 +68,4 @@ $ sshfs root@<vm_ip_address>:/home/ <mount_dir_on_host>
    [git]: <https://git-scm.com/>
    [python2.7]: <https://www.python.org/downloads/release/python-2713/>
    [pyaml]: <https://pypi.python.org/pypi/pyaml#installation>
+   [sshfs]: <https://osxfuse.github.io/>
