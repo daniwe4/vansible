@@ -4,8 +4,14 @@
 import yaml
 import sys
 import os
+
 home_path = os.getenv("HOME")
 out = "***VAG-->"
+
+def switchToWorkingDir():
+	cur_dir = os.readlink(__file__)
+	cur_dir = cur_dir[:cur_dir.rfind("/")]
+	os.chdir(cur_dir)
 
 def getMachineDict():
 	"""getMachineDict()"""
@@ -153,6 +159,7 @@ if os.geteuid() == 0:
 	print "Please run this script only the first time as root!"
 	sys.exit()
 
+switchToWorkingDir()
 config = loadYaml("group_vars/all/config.yml")
 server_roles = config['server_roles']
 password = config['master_pass']
