@@ -142,6 +142,9 @@ def generatePlaybook():
 			print("No roles selected for host %s" % (server_role['name']))
 	stream.close()
 
+if not os.path.isfile(os.getcwd() + "/ip.txt"):
+	file = open("ip.txt", "w")
+
 if not os.path.isfile("/usr/local/bin/vag"):
 	src 	= os.getcwd() + "/vag.py"
 	dst 	= "/usr/local/bin/vag"
