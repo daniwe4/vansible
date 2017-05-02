@@ -2,7 +2,7 @@
 # VANSIBLE
 **The aim of this project is to provide developers with a fast and uncomplicated development environment.**
 **For this, Vagrant and Ansible will be used in combination to provide various virtual machines with different software.**
-**The developers should be able to take all the settings via a central configuration file.**
+**The developers should be able to do all their settings in a central configuration file.**
 
 ## Usage
 ### Software Requirements
@@ -32,26 +32,26 @@ $ sudo ./vag.py
 ### Next Starts
 Start or Install machines:
 ```
-$ vag up [machinename]
+$ vag up <your_machinename>
 ```
 Stop machines:
 ````
-$ vag stop [machinename]
+$ vag stop <your_machinename>
 ````
 Update machines:
 ````
-$ vag provision [machinename]
+$ vag provision <your_machinename>
 ````
 Destroy machines:
 ````
-$ vag destroy [machinename]
+$ vag destroy <your_machinename>
 ````
 
 ### Access To The Machine
 
 To access to the console of the virtual machine you can use the following command:
 ````
-$ vag ssh [machinename]
+$ vag ssh <your_machinename>
 ````
 To access the folder structure of the virtual machines i suggest to use sshfs.
 ````
