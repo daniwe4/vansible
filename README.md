@@ -22,7 +22,8 @@ $ git clone https://github.com/daniwe4/vansible.git
 $ cd Vansible
 ```
 ### Configuration
-All configuration tasks can be done in one file. Open the file "goup_vars/all/config.yml".
+For the first time installation use the template config file 'default.yml' in the main folder. 
+Edit it and copy it to 'group_vars/all/config.yml'.
 Each section is well commentet. Feel free to update each section for your own needs.
 
 ### First Start
@@ -60,7 +61,7 @@ $ vag ssh <your_machinename>
 ````
 To access the folder structure of the virtual machines i suggest to use sshfs.
 ````
-$ sshfs root@<vm_ip_address>:/home/ <mount_dir_on_host>
+$ sshfs root@<vm_ip_address>:/home/vagrant/ <mount_dir_on_host>
 ````
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
