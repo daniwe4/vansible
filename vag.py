@@ -1,17 +1,12 @@
 #!/usr/bin/env python
 
-# Creates the file "playbook.yml"
 import yaml
 import sys
 import os
+import init
 
 home_path = os.getenv("HOME")
 out = "***VAG-->"
-
-def switchToWorkingDir():
-	cur_dir = os.readlink(__file__)
-	cur_dir = cur_dir[:cur_dir.rfind("/")]
-	os.chdir(cur_dir)
 
 def getMachineDict():
 	"""getMachineDict()"""
@@ -149,17 +144,15 @@ def generatePlaybook():
 	stream.close()
 
 if not os.path.isfile("/usr/local/bin/vag"):
-	src 	= os.getcwd() + "/vag.py"
-	dst 	= "/usr/local/bin/vag"
-	os.symlink(src, dst)
-	print "Add syslink for %s in %s" % (src, dst)
-	sys.exit()
+	init.init(home_path)
+
 
 if os.geteuid() == 0:
 	print "Please run this script only the first time as root!"
 	sys.exit()
 
-switchToWorkingDir()
+init.switchToWorkingDir(__file__)
+init.checkForConfigFiles(home_path);
 if not os.path.isfile(os.getcwd() + "/ip.txt"):
 	file = open("ip.txt", "w")
 config = loadYaml("group_vars/all/config.yml")

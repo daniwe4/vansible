@@ -1,8 +1,9 @@
 
 # VANSIBLE
-**The aim of this project is to provide developers with a fast and uncomplicated development environment.**
-**For this, Vagrant and Ansible will be used in combination to provide various virtual machines with different software.**
-**Developers should be able to do all their settings in a central configuration file.**
+**Vansible provides ILIAS developers with a development environment in a fast and uncomplicated way.**
+**This tool uses Vagrant, Ansible and InstILIAS to provide various virtual machines with different software. The developers can do all their settings in a central configuration file.**
+
+**Contact**: [Daniel Weise](https://github.com/daniwe4)
 
 ## Usage
 ### Software Requirements
@@ -21,16 +22,15 @@ $ cd DESTINATION_FOLDER
 $ git clone https://github.com/daniwe4/vansible.git
 $ cd Vansible
 ```
-### Configuration
-For the first time installation use the template config file 'default.yml' in the main folder. 
-Edit it and copy it to 'group_vars/all/config.yml'.
-Each section is well commentet. Feel free to update each section for your own needs.
-
-### First Start
-The first start has to be with root priviliges. It will create a symlink, so from now on you only need the command "vag".
+### Init 
+To init vansible use the following command. It will create a symlink and, so from now on you only need the command "vag".
 ```
 $ sudo ./vag.py
 ```
+
+### Configuration
+All configuration tasks can be done in one file. Open the file $HOME/.vansible/config.yml.
+
 
 ### Next Starts
 For all following commands sudo is unnecessary.
