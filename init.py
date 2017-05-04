@@ -11,7 +11,7 @@ def switchToWorkingDir(file_name):
 
 def checkForConfigFiles(path):
 	""" check for existing config files
-	 	if exists copy this to group_vars/all/ """
+	if exists copy this to group_vars/all/ """
 	if not os.path.isdir(path + '/.vansible'):
 		os.mkdir(path + "/.vansible", 0755)
 
