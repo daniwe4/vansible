@@ -4,8 +4,15 @@
 import yaml
 import sys
 import os
+import crypt
+
 home_path = os.getenv("HOME")
 out = "***VAG-->"
+
+def switchToWorkingDir():
+	cur_dir = os.readlink(__file__)
+	cur_dir = cur_dir[:cur_dir.rfind("/")]
+	os.chdir(cur_dir)
 
 def getMachineDict():
 	"""getMachineDict()"""
@@ -48,38 +55,6 @@ def getOptionalCommands(args):
 		return opt_commands
 	return None
 
-def mountMachines(machines):
-	"""mountMachines(machines)"""
-	machines = machines.split()
-
-	for machine in machines:
-		if "mailer" == machine:
-			continue
-		ip = getRelevantIp(machine)
-		create_path = "mkdir -p %s/mount/%s" % (home_path, machine)
-		os.system(create_path)
-		print "%s Add folder %s/mount/%s" % (out, home_path, machine)
-		cmd = "echo %s | sshfs -o password_stdin root@%s:/home/vagrant %s/mount/%s" % (password, ip, home_path, machine)
-		os.system(cmd)
-		print "%s Mount %s to %s/mount/%s" % (out, machine, home_path, machine)
-
-def umountMachines(machines):
-	"""umountMachines(machines)"""
-	machines = machines.split()
-	for machine in machines:
-		if "mailer" == machine:
-			continue
-		cmd = "umount -f %s/mount/%s" % (home_path, machine)
-		os.system(cmd)
-		print "%s Unmount %s from %s/mount/%s" % (out, machine, home_path, machine)
-		cmd = "rm -rf %s/mount/%s" % (home_path, machine)
-		os.system(cmd)
-		print "%s Remove folder %s/mount/%s" % (out, home_path, machine)
-	if not os.listdir("%s/mount/" % (home_path)):
-		cmd = "rm -rf %s/mount" % (home_path)
-		os.system(cmd)
-		print "%s Remove folder %s/mount" % (out, home_path)
-
 def callVagrant(cmd, opt):
 	"""callVagrant(cmd, opt)"""
 	cmdline = "vagrant %s %s" % (cmd, opt)
@@ -99,13 +74,10 @@ def handleCommands(vag_command, opt_commands):
 	if vag_command != None:
 		if "up" in vag_command:
 			callVagrant("up", machines)
-			mountMachines(machines)
 		elif "halt" in vag_command:
 			callVagrant("halt", machines)
-			umountMachines(machines)
 		elif "destroy" in vag_command:
 			callVagrant("destroy", machines)
-			umountMachines(machines)
 		elif "ssh" in vag_command:
 			callVagrant("ssh", machines)
 		elif "provision" in vag_command:
@@ -114,6 +86,9 @@ def handleCommands(vag_command, opt_commands):
 			print "Unknown command"
 	else:
 		usage()
+
+def hashPasswd(pwd):
+	return crypt.crypt("abcdef", "$6$")
 
 def loadYaml(filename):
 	# generate a dynamic playbook file
@@ -142,6 +117,14 @@ def generatePlaybook():
 			print("No roles selected for host %s" % (server_role['name']))
 	stream.close()
 
+def generateSSHConf(pwd):
+	create_path = "mkdir -p roles/ssh-conf/defaults"
+	os.system(create_path)
+	stream = open("roles/ssh-conf/defaults/main.yml", "w")
+	stream.write("---\n")
+	stream.write("hash: %s" % (pwd))
+	stream.close()
+
 if not os.path.isfile("/usr/local/bin/vag"):
 	src 	= os.getcwd() + "/vag.py"
 	dst 	= "/usr/local/bin/vag"
@@ -153,8 +136,10 @@ if os.geteuid() == 0:
 	print "Please run this script only the first time as root!"
 	sys.exit()
 
+switchToWorkingDir()
 config = loadYaml("group_vars/all/config.yml")
 server_roles = config['server_roles']
 password = config['master_pass']
+generateSSHConf(hashPasswd(password))
 generatePlaybook()
 handleCommands(getVagrantCommand(sys.argv), getOptionalCommands(sys.argv))

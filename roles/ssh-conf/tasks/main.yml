@@ -18,5 +18,5 @@
 - name:               user | set root password
   user:
     name:             root
-    password:         $6$rounds=656000$uDPwIs7VhJxM2ma1$bMR.0DKCRxbREJdLg3nG3cWrEdsq0EWhi2rTD9/N.COyNwuJZaFC6duch7Th/zAyLP6Bkuzv85adFZAM.wrFZ0
+    password:         "{{hash}}"
     update_password:  always
