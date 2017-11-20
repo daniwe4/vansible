@@ -2,8 +2,6 @@
 /playbook.yml
 /playbook.retry
 /ansible*
-/ip.txt
-/group_vars/all/
 !.gitignore
 !README.md
 /roles/ssh-conf/defaults/main.yml
