@@ -1,0 +1,45 @@
+---
+# File: roles/Ilse/tasks/main.yml
+# Clone Ilse to /var/www/default
+
+- name:         git | get Ilse
+  git:          repo=https://github.com/daniwe4/ilias-tool-ilse.git dest=/home/vagrant/share/Ilse version={{current_ilse_version}}
+
+- name:         shell | start composer
+  shell:        composer install
+  args:
+    chdir:      /home/vagrant/share/Ilse
+
+- name:           file | ensure that /root/.ilse exists
+  file:
+    path:         /root/.ilse
+    state:        directory
+    mode:         0755
+
+- name:         file | copy Ilse config file
+  template:
+    src:        roles/Ilse/templates/config.yml.j2
+    dest:       /root/.ilse/config.yaml
+
+- name:         file | copy ILIAS config file
+  template:
+    src:        roles/Ilse/templates/ilias.config.yml.j2
+    dest:       /home/vagrant/share/config.yaml
+
+- stat:
+    path:       /home/vagrant/share/repo/ILIAS/data
+  register:     p
+
+- name:         shell | start Ilse
+  shell:        php ilse.php install ../config.yaml
+  args:
+    chdir:      /home/vagrant/share/Ilse
+  when:         p.stat.isdir is not defined
+
+- name:         file | change privilegs
+  file:
+    path:       /home/vagrant/share/ILIAS
+    state:      directory
+    owner:      www-data
+    group:      www-data
+    recurse:    yes

@@ -57,13 +57,13 @@ Vagrant.configure("2") do |config|
 	File.delete("ip.txt");
 	config.vm.box = "debian/jessie64"
 	config.vm.synced_folder ".", "/vagrant", disabled: true
-	
+
 	# do for each virtual machine
 	nodes.each do |node|
 
 		File.open("ip.txt", "a") { |f| f.write(node[:hostname] + " " + node[:ip] + "\n") }
 		config.vm.define node[:hostname] do |nodeconfig|
-			
+
 			nodeconfig.vm.hostname = node[:hostname]
 			nodeconfig.vm.network :public_network, ip: node[:ip], bridge: "en0: Ethernet", :netmask => "255.255.255.0", :gateway => "192.168.2.1"
 			nodeconfig.vm.provider "virtualbox" do |vb|

@@ -24,3 +24,11 @@
     regexp:       '^error-reporting ='
     line:         'error-reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT & ~E_WARNING'
   notify:         apache2 restart
+
+- name:           edit | ensure that php.ini set seesion.cookie_lifetime
+  lineinfile:
+    dest:         /etc/php5/cli/php.ini
+    state:        present
+    regexp:       '^session.cookie_lifetime ='
+    line:         'session.cookie_lifetime = 2222222'
+  notify:         apache2 restart

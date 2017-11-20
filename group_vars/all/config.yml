@@ -1,0 +1,82 @@
+---
+# File: group_vars/all/config.yml
+# global config file
+
+# Enter your password, wich will be used for all roles.
+master_pass: abcdef
+
+# First three octets of an ipv4 address
+# e.g. "192.168.4"
+ip_first_part: "192.168.2"
+
+# Select one of the initials from the user categorie.
+# e.g dw
+name: dw
+
+# The number will be used to build a custom ip address.
+# It represents the first number of last octet of an ip-address
+# e.g 192.168.1.{number}34
+# Starts at zero and goes to 22 by step 2.
+user:
+  rk: 0
+  sh: 2
+  dw: 4
+  dk: 6
+  nh: 8
+
+# Define the machines vagrant should install and their name.
+# It is also used for the last number in the last octet of an ip-address
+# e.g. 192.168.1.4{number}
+# Begin the numeration with 2 .
+# Define here which server roles each machine is in
+machines:
+  - name: tms45
+    ip: 5
+    groups:
+      - webserver
+
+# Please use only one mailserver per subnet
+# true = install the mailserver
+mailserver: false
+
+# Use this section to define which roles will be install for a group.
+
+server_roles:
+  - name: webserver
+    roles:
+      - systools
+      - apache2
+      - php5
+      - php-tools
+      - mysql
+      - phpmyadmin
+      - oh-my-zsh
+      - ssh-conf
+      - Ilse
+
+
+# Edit this only if you know what you doing
+  - name: mailserver
+    roles:
+      - exim
+      - dovecot #auth ....
+      - systools
+      - oh-my-zsh
+
+# -------------------- Use the following to edit each role seperatly -------------------------------
+
+# --------  Role: Ilse  --------
+# Branch to checkout
+# Current available branches: master, release_5-2
+current_ilse_version: updateplugins_rebase
+ilias_repo: https://github.com/ILIAS-eLearning/ILIAS.git
+
+# --------  Role: systools  --------
+# Enter your prefered tools.
+# If it works with 'apt install' it will work here too.
+systools:
+  - vim
+  - git
+  - curl
+  - zip
+  - unzip
