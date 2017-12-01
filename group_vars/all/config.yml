@@ -30,8 +30,8 @@ user:
 # Begin the numeration with 2 .
 # Define here which server roles each machine is in
 machines:
-  - name: tms45
-    ip: 5
+  - name: tms46
+    ip: 6
     groups:
       - webserver
 
@@ -67,9 +67,7 @@ server_roles:
 
 # --------  Role: Ilse  --------
 # Branch to checkout
-# Current available branches: master, release_5-2
 current_ilse_version: updateplugins_rebase
-ilias_repo: https://github.com/ILIAS-eLearning/ILIAS.git
 
 # --------  Role: systools  --------
 # Enter your prefered tools.
@@ -80,3 +78,4 @@ systools:
   - curl
   - zip
   - unzip
+  - imagemagick

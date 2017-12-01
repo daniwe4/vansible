@@ -3,7 +3,6 @@
 # --------  Role: php5  --------
 # Package to install
 php5_packages:
-  - imagemagick
   - php5
   - php5-fpm
   - php5-cli
